@@ -1,10 +1,11 @@
-from transformers import AutoProcessor, BeatsForAudioClassification
+# from transformers import AutoProcessor, BeatsForAudioClassification
+import transformers
 import torch
 import torchaudio
 
 # Step 1: Load the BEATs model and processor
 model_name = "facebook/beat-large-960h"
-model = BeatsForAudioClassification.from_pretrained(model_name)
+model = transformers.BeatsForAudioClassification.from_pretrained(model_name)
 processor = AutoProcessor.from_pretrained(model_name)
 
 # Step 2: Load an audio file

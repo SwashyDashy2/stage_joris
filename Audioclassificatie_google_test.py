@@ -4,13 +4,15 @@ from IPython.display import Audio, display
 from mediapipe.tasks import python
 from mediapipe.tasks.python.components import containers
 from mediapipe.tasks.python import audio
-from collections import Counter
+from collections import Counter, defaultdict
 import matplotlib.pyplot as plt
 
 # Number of classes to display
-n_classes = 5
+n_classes = 10
+min_score = 0.1
+min_classifications = 10
 
-audio_file_name = r'wavs\hond2.wav'
+audio_file_name = r'wavs\kat.wav'
 # Read the audio file to get the data and sample rate
 sample_rate, audio_data = wavfile.read(audio_file_name)
 
@@ -43,6 +45,7 @@ interval_ms = 975
 
 # Collect predictions at specified intervals
 timestamp_predictions = []
+class_counts = Counter()
 
 # Iterate through clips to display classifications at 975 ms intervals
 for timestamp in range(0, int(duration * 1000), interval_ms):
@@ -53,20 +56,33 @@ for timestamp in range(0, int(duration * 1000), interval_ms):
         print(f'Timestamp {timestamp}:')
         for i in range(min(n_classes, len(classification_result.classifications[0].categories))):
             category = classification_result.classifications[0].categories[i]
-            if category.score >= 0.2:
+            if category.score >= min_score:
                 print(f'  {i+1}. {category.category_name} ({category.score:.2f})')
                 timestamp_predictions.append(category.category_name)
+                class_counts[category.category_name] += 1
     else:
         print(f'Timestamp {timestamp}: No classification result available')
 
-# Count the occurrences of each class at the specified timestamps
-prediction_counts = Counter(timestamp_predictions)
+# Filter classes based on min_classifications
+filtered_class_counts = {k: v for k, v in class_counts.items() if v >= min_classifications}
+
+# Print the three classes with the highest total probability
+class_probabilities = defaultdict(float)
+for classification_result in classification_result_list:
+    for category in classification_result.classifications[0].categories:
+        if category.score >= min_score:
+            class_probabilities[category.category_name] += category.score
+
+sorted_classes = sorted(class_probabilities.items(), key=lambda x: x[1], reverse=True)
+print("This sound is likely:")
+for i, (category, probability) in enumerate(sorted_classes[:3], 1):
+    print(f"{i}. {category} (Total Probability: {probability:.2f})")
 
 # Plot the histogram
-plt.bar(prediction_counts.keys(), prediction_counts.values())
+plt.bar(filtered_class_counts.keys(), filtered_class_counts.values())
 plt.xlabel('Class')
-plt.ylabel('Frequency')
-plt.title('Histogram of Predicted Classes at Specified Timestamps')
+plt.ylabel('Number of Identifications')
+plt.title('Histogram of Number of Identifications for Predicted Classes')
 plt.xticks(rotation=45, fontsize=8)
 plt.yticks(fontsize=8)
 plt.show()
