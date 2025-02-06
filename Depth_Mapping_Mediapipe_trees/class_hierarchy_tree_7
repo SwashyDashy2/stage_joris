@@ -1,0 +1,68 @@
+// Class Hierarchy Tree 7
+digraph {
+	"/t/dd00123" [label="Channel, environment and background"]
+	"/t/dd00123" -> "/t/dd00093"
+	"/t/dd00093" [label="Acoustic environment"]
+	"/t/dd00093" -> "/t/dd00125"
+	"/t/dd00125" [label="Inside, small room"]
+	"/t/dd00093" -> "/t/dd00126"
+	"/t/dd00126" [label="Inside, large room or hall"]
+	"/t/dd00093" -> "/t/dd00127"
+	"/t/dd00127" [label="Inside, public space"]
+	"/t/dd00093" -> "/t/dd00128"
+	"/t/dd00128" [label="Outside, urban or manmade"]
+	"/t/dd00093" -> "/t/dd00129"
+	"/t/dd00129" [label="Outside, rural or natural"]
+	"/t/dd00093" -> "/m/01b9nn"
+	"/m/01b9nn" [label=Reverberation]
+	"/t/dd00093" -> "/m/01jnbd"
+	"/m/01jnbd" [label=Echo]
+	"/t/dd00123" -> "/m/096m7z"
+	"/m/096m7z" [label=Noise]
+	"/m/096m7z" -> "/m/093_4n"
+	"/m/093_4n" [label="Background noise"]
+	"/m/093_4n" -> "/m/06_y0by"
+	"/m/06_y0by" [label="Environmental noise"]
+	"/m/093_4n" -> "/m/09d1b1"
+	"/m/09d1b1" [label="Tape hiss"]
+	"/m/093_4n" -> "/m/07rgkc5"
+	"/m/07rgkc5" [label=Static]
+	"/m/093_4n" -> "/m/06xkwv"
+	"/m/06xkwv" [label="Mains hum"]
+	"/m/093_4n" -> "/m/0g12c5"
+	"/m/0g12c5" [label=Distortion]
+	"/m/093_4n" -> "/m/08p9q4"
+	"/m/08p9q4" [label=Sidetone]
+	"/m/096m7z" -> "/m/07qfr4h"
+	"/m/07qfr4h" [label="Hubbub, speech noise, speech babble"]
+	"/m/096m7z" -> "/m/07szfh9"
+	"/m/07szfh9" [label=Cacophony]
+	"/m/096m7z" -> "/m/0chx_"
+	"/m/0chx_" [label="White noise"]
+	"/m/096m7z" -> "/m/0cj0r"
+	"/m/0cj0r" [label="Pink noise"]
+	"/m/096m7z" -> "/m/07p_0gm"
+	"/m/07p_0gm" [label=Throbbing]
+	"/m/096m7z" -> "/m/01jwx6"
+	"/m/01jwx6" [label=Vibration]
+	"/t/dd00123" -> "/m/07bm98"
+	"/m/07bm98" [label="Sound reproduction"]
+	"/m/07bm98" -> "/m/07c52"
+	"/m/07c52" [label=Television]
+	"/m/07bm98" -> "/m/06bz3"
+	"/m/06bz3" [label=Radio]
+	"/m/07bm98" -> "/m/0cfpc"
+	"/m/0cfpc" [label=Loudspeaker]
+	"/m/07bm98" -> "/m/01b7fy"
+	"/m/01b7fy" [label=Headphones]
+	"/m/07bm98" -> "/m/025l19"
+	"/m/025l19" [label=Recording]
+	"/m/025l19" -> "/m/07hvw1"
+	"/m/07hvw1" [label="Field recording"]
+	"/m/07bm98" -> "/m/0174nj"
+	"/m/0174nj" [label="Gramophone record"]
+	"/m/07bm98" -> "/m/01www"
+	"/m/01www" [label="Compact disc"]
+	"/m/07bm98" -> "/m/04zc0"
+	"/m/04zc0" [label=MP3]
+}

@@ -1,0 +1,384 @@
+// Class Hierarchy Tree 3
+digraph {
+	"/m/04rlf" [label=Music]
+	"/m/04rlf" -> "/m/04szw"
+	"/m/04szw" [label="Musical instrument"]
+	"/m/04szw" -> "/m/0fx80y"
+	"/m/0fx80y" [label="Plucked string instrument"]
+	"/m/0fx80y" -> "/m/0342h"
+	"/m/0342h" [label=Guitar]
+	"/m/0342h" -> "/m/02sgy"
+	"/m/02sgy" [label="Electric guitar"]
+	"/m/0342h" -> "/m/018vs"
+	"/m/018vs" [label="Bass guitar"]
+	"/m/0342h" -> "/m/042v_gx"
+	"/m/042v_gx" [label="Acoustic guitar"]
+	"/m/0342h" -> "/m/06w87"
+	"/m/06w87" [label="Steel guitar, slide guitar"]
+	"/m/0342h" -> "/m/01glhc"
+	"/m/01glhc" [label="Tapping (guitar technique)"]
+	"/m/0342h" -> "/m/07s0s5r"
+	"/m/07s0s5r" [label=Strum]
+	"/m/0fx80y" -> "/m/018j2"
+	"/m/018j2" [label=Banjo]
+	"/m/0fx80y" -> "/m/0jtg0"
+	"/m/0jtg0" [label=Sitar]
+	"/m/0fx80y" -> "/m/04rzd"
+	"/m/04rzd" [label=Mandolin]
+	"/m/0fx80y" -> "/m/01bns_"
+	"/m/01bns_" [label=Zither]
+	"/m/0fx80y" -> "/m/07xzm"
+	"/m/07xzm" [label=Ukulele]
+	"/m/04szw" -> "/m/05148p4"
+	"/m/05148p4" [label="Keyboard (musical)"]
+	"/m/05148p4" -> "/m/05r5c"
+	"/m/05r5c" [label=Piano]
+	"/m/05r5c" -> "/m/01s0ps"
+	"/m/01s0ps" [label="Electric piano"]
+	"/m/01s0ps" -> "/m/025cbm"
+	"/m/025cbm" [label=Clavinet]
+	"/m/01s0ps" -> "/m/0bxl5"
+	"/m/0bxl5" [label="Rhodes piano"]
+	"/m/05148p4" -> "/m/013y1f"
+	"/m/013y1f" [label=Organ]
+	"/m/013y1f" -> "/m/03xq_f"
+	"/m/03xq_f" [label="Electronic organ"]
+	"/m/013y1f" -> "/m/03gvt"
+	"/m/03gvt" [label="Hammond organ"]
+	"/m/05148p4" -> "/m/0l14qv"
+	"/m/0l14qv" [label=Synthesizer]
+	"/m/0l14qv" -> "/m/01v1d8"
+	"/m/01v1d8" [label=Sampler]
+	"/m/0l14qv" -> "/m/0gkd1"
+	"/m/0gkd1" [label=Mellotron]
+	"/m/05148p4" -> "/m/03q5t"
+	"/m/03q5t" [label=Harpsichord]
+	"/m/04szw" -> "/m/0l14md"
+	"/m/0l14md" [label=Percussion]
+	"/m/0l14md" -> "/m/02hnl"
+	"/m/02hnl" [label="Drum kit"]
+	"/m/02hnl" -> "/m/0cfdd"
+	"/m/0cfdd" [label="Drum machine"]
+	"/m/0l14md" -> "/m/026t6"
+	"/m/026t6" [label=Drum]
+	"/m/026t6" -> "/m/06rvn"
+	"/m/06rvn" [label="Snare drum"]
+	"/m/06rvn" -> "/m/03t3fj"
+	"/m/03t3fj" [label=Rimshot]
+	"/m/06rvn" -> "/m/02k_mr"
+	"/m/02k_mr" [label="Drum roll"]
+	"/m/026t6" -> "/m/0bm02"
+	"/m/0bm02" [label="Bass drum"]
+	"/m/026t6" -> "/m/011k_j"
+	"/m/011k_j" [label=Timpani]
+	"/m/026t6" -> "/m/01p970"
+	"/m/01p970" [label=Tabla]
+	"/m/0l14md" -> "/m/01qbl"
+	"/m/01qbl" [label=Cymbal]
+	"/m/01qbl" -> "/m/03qtq"
+	"/m/03qtq" [label="Hi-hat"]
+	"/m/01qbl" -> "/m/0bm0k"
+	"/m/0bm0k" [label="Crash cymbal"]
+	"/m/0l14md" -> "/m/0239kh"
+	"/m/0239kh" [label=Cowbell]
+	"/m/0l14md" -> "/m/01sm1g"
+	"/m/01sm1g" [label="Wood block"]
+	"/m/0l14md" -> "/m/07brj"
+	"/m/07brj" [label=Tambourine]
+	"/m/0l14md" -> "/m/05r5wn"
+	"/m/05r5wn" [label="Rattle (instrument)"]
+	"/m/05r5wn" -> "/m/0xzly"
+	"/m/0xzly" [label=Maraca]
+	"/m/0l14md" -> "/m/0mbct"
+	"/m/0mbct" [label=Gong]
+	"/m/0l14md" -> "/m/016622"
+	"/m/016622" [label="Tubular bells"]
+	"/m/0l14md" -> "/m/0j45pbj"
+	"/m/0j45pbj" [label="Mallet percussion"]
+	"/m/0j45pbj" -> "/m/0dwsp"
+	"/m/0dwsp" [label="Marimba, xylophone"]
+	"/m/0j45pbj" -> "/m/0dwtp"
+	"/m/0dwtp" [label=Glockenspiel]
+	"/m/0j45pbj" -> "/m/0dwt5"
+	"/m/0dwt5" [label=Vibraphone]
+	"/m/0j45pbj" -> "/m/0l156b"
+	"/m/0l156b" [label=Steelpan]
+	"/m/04szw" -> "/m/05pd6"
+	"/m/05pd6" [label=Orchestra]
+	"/m/04szw" -> "/m/01kcd"
+	"/m/01kcd" [label="Brass instrument"]
+	"/m/01kcd" -> "/m/0319l"
+	"/m/0319l" [label="French horn"]
+	"/m/01kcd" -> "/m/07gql"
+	"/m/07gql" [label=Trumpet]
+	"/m/01kcd" -> "/m/07c6l"
+	"/m/07c6l" [label=Trombone]
+	"/m/01kcd" -> "/m/020w2"
+	"/m/020w2" [label=Cornet]
+	"/m/01kcd" -> "/m/0y64j"
+	"/m/0y64j" [label=Bugle]
+	"/m/04szw" -> "/m/0l14_3"
+	"/m/0l14_3" [label="Bowed string instrument"]
+	"/m/0l14_3" -> "/m/02qmj0d"
+	"/m/02qmj0d" [label="String section"]
+	"/m/0l14_3" -> "/m/07y_7"
+	"/m/07y_7" [label="Violin, fiddle"]
+	"/m/07y_7" -> "/m/0d8_n"
+	"/m/0d8_n" [label=Pizzicato]
+	"/m/0l14_3" -> "/m/01xqw"
+	"/m/01xqw" [label=Cello]
+	"/m/0l14_3" -> "/m/02fsn"
+	"/m/02fsn" [label="Double bass"]
+	"/m/04szw" -> "/m/085jw"
+	"/m/085jw" [label="Wind instrument, woodwind instrument"]
+	"/m/085jw" -> "/m/0l14j_"
+	"/m/0l14j_" [label=Flute]
+	"/m/085jw" -> "/m/06ncr"
+	"/m/06ncr" [label=Saxophone]
+	"/m/06ncr" -> "/m/02pprs"
+	"/m/02pprs" [label="Alto saxophone"]
+	"/m/06ncr" -> "/m/03t22m"
+	"/m/03t22m" [label="Soprano saxophone"]
+	"/m/085jw" -> "/m/01wy6"
+	"/m/01wy6" [label=Clarinet]
+	"/m/085jw" -> "/m/05kms"
+	"/m/05kms" [label=Oboe]
+	"/m/085jw" -> "/m/01c3q"
+	"/m/01c3q" [label=Bassoon]
+	"/m/04szw" -> "/m/03m5k"
+	"/m/03m5k" [label=Harp]
+	"/m/04szw" -> "/m/0l14jd"
+	"/m/0l14jd" [label=Choir]
+	"/m/04szw" -> "/m/0395lw"
+	"/m/0395lw" [label=Bell]
+	"/m/0395lw" -> "/m/03w41f"
+	"/m/03w41f" [label="Church bell"]
+	"/m/0395lw" -> "/m/0239kh"
+	"/m/0239kh" [label=Cowbell]
+	"/m/0395lw" -> "/m/027m70_"
+	"/m/027m70_" [label="Jingle bell"]
+	"/m/0395lw" -> "/m/0gy1t2s"
+	"/m/0gy1t2s" [label="Bicycle bell"]
+	"/m/0395lw" -> "/m/07n_g"
+	"/m/07n_g" [label="Tuning fork"]
+	"/m/0395lw" -> "/m/0f8s22"
+	"/m/0f8s22" [label=Chime]
+	"/m/0f8s22" -> "/m/026fgl"
+	"/m/026fgl" [label="Wind chime"]
+	"/m/0395lw" -> "/m/0150b9"
+	"/m/0150b9" [label="Change ringing (campanology)"]
+	"/m/04szw" -> "/m/03qjg"
+	"/m/03qjg" [label=Harmonica]
+	"/m/04szw" -> "/m/0mkg"
+	"/m/0mkg" [label=Accordion]
+	"/m/04szw" -> "/m/0192l"
+	"/m/0192l" [label=Bagpipes]
+	"/m/04szw" -> "/m/02bxd"
+	"/m/02bxd" [label=Didgeridoo]
+	"/m/04szw" -> "/m/0l14l2"
+	"/m/0l14l2" [label=Shofar]
+	"/m/04szw" -> "/m/07kc_"
+	"/m/07kc_" [label=Theremin]
+	"/m/04szw" -> "/m/0l14t7"
+	"/m/0l14t7" [label="Singing bowl"]
+	"/m/04szw" -> "/m/05229"
+	"/m/05229" [label="Musical ensemble"]
+	"/m/04szw" -> "/m/01vj9c"
+	"/m/01vj9c" [label="Bass (instrument role)"]
+	"/m/04szw" -> "/m/01hgjl"
+	"/m/01hgjl" [label="Scratching (performance technique)"]
+	"/m/04rlf" -> "/m/0kpv1t"
+	"/m/0kpv1t" [label="Music genre"]
+	"/m/0kpv1t" -> "/m/064t9"
+	"/m/064t9" [label="Pop music"]
+	"/m/0kpv1t" -> "/m/0glt670"
+	"/m/0glt670" [label="Hip hop music"]
+	"/m/0glt670" -> "/m/04j_h4"
+	"/m/04j_h4" [label="Grime music"]
+	"/m/0glt670" -> "/m/0n8zsc8"
+	"/m/0n8zsc8" [label="Trap music"]
+	"/m/0glt670" -> "/m/02cz_7"
+	"/m/02cz_7" [label=Beatboxing]
+	"/m/0kpv1t" -> "/m/06by7"
+	"/m/06by7" [label="Rock music"]
+	"/m/06by7" -> "/m/03lty"
+	"/m/03lty" [label="Heavy metal"]
+	"/m/06by7" -> "/m/05r6t"
+	"/m/05r6t" [label="Punk rock"]
+	"/m/06by7" -> "/m/0dls3"
+	"/m/0dls3" [label=Grunge]
+	"/m/06by7" -> "/m/0dl5d"
+	"/m/0dl5d" [label="Progressive rock"]
+	"/m/06by7" -> "/m/07sbbz2"
+	"/m/07sbbz2" [label="Rock and roll"]
+	"/m/06by7" -> "/m/05w3f"
+	"/m/05w3f" [label="Psychedelic rock"]
+	"/m/0kpv1t" -> "/m/06j6l"
+	"/m/06j6l" [label="Rhythm and blues"]
+	"/m/0kpv1t" -> "/m/0gywn"
+	"/m/0gywn" [label="Soul music"]
+	"/m/0kpv1t" -> "/m/06cqb"
+	"/m/06cqb" [label=Reggae]
+	"/m/06cqb" -> "/m/0190y4"
+	"/m/0190y4" [label=Dub]
+	"/m/0kpv1t" -> "/m/01lyv"
+	"/m/01lyv" [label=Country]
+	"/m/01lyv" -> "/m/015y_n"
+	"/m/015y_n" [label="Swing music"]
+	"/m/01lyv" -> "/m/0gg8l"
+	"/m/0gg8l" [label=Bluegrass]
+	"/m/0kpv1t" -> "/m/02x8m"
+	"/m/02x8m" [label=Funk]
+	"/m/0kpv1t" -> "/m/02w4v"
+	"/m/02w4v" [label="Folk music"]
+	"/m/0kpv1t" -> "/m/06j64v"
+	"/m/06j64v" [label="Middle Eastern music"]
+	"/m/0kpv1t" -> "/m/03_d0"
+	"/m/03_d0" [label=Jazz]
+	"/m/0kpv1t" -> "/m/026z9"
+	"/m/026z9" [label=Disco]
+	"/m/0kpv1t" -> "/m/0ggq0m"
+	"/m/0ggq0m" [label="Classical music"]
+	"/m/0ggq0m" -> "/m/05lls"
+	"/m/05lls" [label=Opera]
+	"/m/0kpv1t" -> "/m/02lkt"
+	"/m/02lkt" [label="Electronic music"]
+	"/m/02lkt" -> "/m/03mb9"
+	"/m/03mb9" [label="House music"]
+	"/m/02lkt" -> "/m/07gxw"
+	"/m/07gxw" [label=Techno]
+	"/m/02lkt" -> "/m/07s72n"
+	"/m/07s72n" [label=Dubstep]
+	"/m/02lkt" -> "/m/029h7y"
+	"/m/029h7y" [label=Electro]
+	"/m/02lkt" -> "/m/0283d"
+	"/m/0283d" [label="Drum and bass"]
+	"/m/0283d" -> "/m/01f9gb"
+	"/m/01f9gb" [label="Oldschool jungle"]
+	"/m/02lkt" -> "/m/0m0jc"
+	"/m/0m0jc" [label=Electronica]
+	"/m/02lkt" -> "/m/08cyft"
+	"/m/08cyft" [label="Electronic dance music"]
+	"/m/02lkt" -> "/m/0fd3y"
+	"/m/0fd3y" [label="Ambient music"]
+	"/m/0fd3y" -> "/m/052smk"
+	"/m/052smk" [label="Drone music"]
+	"/m/02lkt" -> "/m/07lnk"
+	"/m/07lnk" [label="Trance music"]
+	"/m/02lkt" -> "/m/0m0fw"
+	"/m/0m0fw" [label="Noise music"]
+	"/m/02lkt" -> "/m/0bmfpc"
+	"/m/0bmfpc" [label="UK garage"]
+	"/m/0kpv1t" -> "/m/0g293"
+	"/m/0g293" [label="Music of Latin America"]
+	"/m/0g293" -> "/m/02ccj9"
+	"/m/02ccj9" [label=Cumbia]
+	"/m/0g293" -> "/m/0ln16"
+	"/m/0ln16" [label="Salsa music"]
+	"/m/0g293" -> "/m/0kpck"
+	"/m/0kpck" [label="Soca music"]
+	"/m/0g293" -> "/m/080nby"
+	"/m/080nby" [label=Kuduro]
+	"/m/0g293" -> "/m/05q7ms"
+	"/m/05q7ms" [label="Funk carioca"]
+	"/m/0g293" -> "/m/0326g"
+	"/m/0326g" [label=Flamenco]
+	"/m/0kpv1t" -> "/m/0155w"
+	"/m/0155w" [label=Blues]
+	"/m/0kpv1t" -> "/m/05fw6t"
+	"/m/05fw6t" [label="Music for children"]
+	"/m/0kpv1t" -> "/m/02v2lh"
+	"/m/02v2lh" [label="New-age music"]
+	"/m/0kpv1t" -> "/m/0y4f8"
+	"/m/0y4f8" [label="Vocal music"]
+	"/m/0y4f8" -> "/m/0z9c"
+	"/m/0z9c" [label="A capella"]
+	"/m/0y4f8" -> "/m/02bk07"
+	"/m/02bk07" [label=Chant]
+	"/m/02bk07" -> "/m/01c194"
+	"/m/01c194" [label=Mantra]
+	"/m/0y4f8" -> "/m/02cz_7"
+	"/m/02cz_7" [label=Beatboxing]
+	"/m/0kpv1t" -> "/m/0164x2"
+	"/m/0164x2" [label="Music of Africa"]
+	"/m/0164x2" -> "/m/0145m"
+	"/m/0145m" [label=Afrobeat]
+	"/m/0164x2" -> "/m/022dgg"
+	"/m/022dgg" [label=Kwaito]
+	"/m/0kpv1t" -> "/m/02mscn"
+	"/m/02mscn" [label="Christian music"]
+	"/m/02mscn" -> "/m/016cjb"
+	"/m/016cjb" [label="Gospel music"]
+	"/m/0kpv1t" -> "/m/028sqc"
+	"/m/028sqc" [label="Music of Asia"]
+	"/m/028sqc" -> "/m/015vgc"
+	"/m/015vgc" [label="Carnatic music"]
+	"/m/028sqc" -> "/m/0dq0md"
+	"/m/0dq0md" [label="Music of Bollywood"]
+	"/m/0kpv1t" -> "/m/06rqw"
+	"/m/06rqw" [label=Ska]
+	"/m/0kpv1t" -> "/m/02p0sh1"
+	"/m/02p0sh1" [label="Traditional music"]
+	"/m/0kpv1t" -> "/m/05rwpb"
+	"/m/05rwpb" [label="Independent music"]
+	"/m/04rlf" -> "/t/dd00027"
+	"/t/dd00027" [label="Musical concepts"]
+	"/t/dd00027" -> "/m/074ft"
+	"/m/074ft" [label=Song]
+	"/t/dd00027" -> "/m/09dsr"
+	"/m/09dsr" [label=Melody]
+	"/t/dd00027" -> "/m/05jcn"
+	"/m/05jcn" [label="Musical note"]
+	"/t/dd00027" -> "/m/022c7z"
+	"/m/022c7z" [label=Beat]
+	"/m/022c7z" -> "/m/05xp3j"
+	"/m/05xp3j" [label="Drum beat"]
+	"/t/dd00027" -> "/m/01gp74"
+	"/m/01gp74" [label=Chord]
+	"/t/dd00027" -> "/m/0b128"
+	"/m/0b128" [label=Harmony]
+	"/t/dd00027" -> "/m/021wwz"
+	"/m/021wwz" [label=Bassline]
+	"/t/dd00027" -> "/m/0kc2j"
+	"/m/0kc2j" [label=Loop]
+	"/t/dd00027" -> "/m/03w6d1"
+	"/m/03w6d1" [label=Drone]
+	"/m/04rlf" -> "/t/dd00028"
+	"/t/dd00028" [label="Music role"]
+	"/t/dd00028" -> "/m/025td0t"
+	"/m/025td0t" [label="Background music"]
+	"/t/dd00028" -> "/m/02cjck"
+	"/m/02cjck" [label="Theme music"]
+	"/t/dd00028" -> "/m/03r5q_"
+	"/m/03r5q_" [label="Jingle (music)"]
+	"/t/dd00028" -> "/m/0l14gg"
+	"/m/0l14gg" [label="Soundtrack music"]
+	"/t/dd00028" -> "/m/07pkxdp"
+	"/m/07pkxdp" [label=Lullaby]
+	"/t/dd00028" -> "/m/01z7dr"
+	"/m/01z7dr" [label="Video game music"]
+	"/t/dd00028" -> "/m/0140xf"
+	"/m/0140xf" [label="Christmas music"]
+	"/t/dd00028" -> "/m/0ggx5q"
+	"/m/0ggx5q" [label="Dance music"]
+	"/t/dd00028" -> "/m/04wptg"
+	"/m/04wptg" [label="Wedding music"]
+	"/t/dd00028" -> "/t/dd00029"
+	"/t/dd00029" [label="Birthday music"]
+	"/m/04rlf" -> "/t/dd00030"
+	"/t/dd00030" [label="Music mood"]
+	"/t/dd00030" -> "/t/dd00031"
+	"/t/dd00031" [label="Happy music"]
+	"/t/dd00030" -> "/t/dd00032"
+	"/t/dd00032" [label="Funny music"]
+	"/t/dd00030" -> "/t/dd00033"
+	"/t/dd00033" [label="Sad music"]
+	"/t/dd00030" -> "/t/dd00034"
+	"/t/dd00034" [label="Tender music"]
+	"/t/dd00030" -> "/t/dd00035"
+	"/t/dd00035" [label="Exciting music"]
+	"/t/dd00030" -> "/t/dd00036"
+	"/t/dd00036" [label="Angry music"]
+	"/t/dd00030" -> "/t/dd00037"
+	"/t/dd00037" [label="Scary music"]
+}

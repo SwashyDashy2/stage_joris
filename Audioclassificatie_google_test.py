@@ -9,10 +9,14 @@ import matplotlib.pyplot as plt
 
 # Number of classes to display
 n_classes = 10
-min_score = 0.1
-min_classifications = 10
+min_score = 0.10
+min_classifications = 0
 
-audio_file_name = r'wavs\kat.wav'
+import os
+
+audio_file_name = r'wavs\Barcelona_2022\segments\L_larger_90\passby_155.wav'
+if not os.path.isfile(audio_file_name):
+    raise FileNotFoundError(f"Audio file not found: {audio_file_name}")
 # Read the audio file to get the data and sample rate
 sample_rate, audio_data = wavfile.read(audio_file_name)
 

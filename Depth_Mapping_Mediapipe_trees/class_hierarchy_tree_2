@@ -1,0 +1,162 @@
+// Class Hierarchy Tree 2
+digraph {
+	"/m/0jbk" [label=Animal]
+	"/m/0jbk" -> "/m/068hy"
+	"/m/068hy" [label="Domestic animals, pets"]
+	"/m/068hy" -> "/m/0bt9lr"
+	"/m/0bt9lr" [label=Dog]
+	"/m/0bt9lr" -> "/m/05tny_"
+	"/m/05tny_" [label=Bark]
+	"/m/0bt9lr" -> "/m/07r_k2n"
+	"/m/07r_k2n" [label=Yip]
+	"/m/0bt9lr" -> "/m/07qf0zm"
+	"/m/07qf0zm" [label=Howl]
+	"/m/0bt9lr" -> "/m/07rc7d9"
+	"/m/07rc7d9" [label="Bow-wow"]
+	"/m/0bt9lr" -> "/m/0ghcn6"
+	"/m/0ghcn6" [label=Growling]
+	"/m/0bt9lr" -> "/t/dd00136"
+	"/t/dd00136" [label="Whimper (dog)"]
+	"/m/0bt9lr" -> "/m/07srf8z"
+	"/m/07srf8z" [label=Bay]
+	"/m/068hy" -> "/m/01yrx"
+	"/m/01yrx" [label=Cat]
+	"/m/01yrx" -> "/m/02yds9"
+	"/m/02yds9" [label=Purr]
+	"/m/01yrx" -> "/m/07qrkrw"
+	"/m/07qrkrw" [label=Meow]
+	"/m/01yrx" -> "/m/07rjwbb"
+	"/m/07rjwbb" [label=Hiss]
+	"/m/01yrx" -> "/m/0f25s6"
+	"/m/0f25s6" [label="Cat communication"]
+	"/m/01yrx" -> "/m/07r81j2"
+	"/m/07r81j2" [label=Caterwaul]
+	"/m/01yrx" -> "/m/0ghcn6"
+	"/m/0ghcn6" [label=Growling]
+	"/m/0jbk" -> "/m/0ch8v"
+	"/m/0ch8v" [label="Livestock, farm animals, working animals"]
+	"/m/0ch8v" -> "/m/03k3r"
+	"/m/03k3r" [label=Horse]
+	"/m/03k3r" -> "/m/07rv9rh"
+	"/m/07rv9rh" [label="Clip-clop"]
+	"/m/03k3r" -> "/m/07q5rw0"
+	"/m/07q5rw0" [label="Neigh, whinny"]
+	"/m/03k3r" -> "/t/dd00139"
+	"/t/dd00139" [label="Snort (horse)"]
+	"/m/03k3r" -> "/t/dd00140"
+	"/t/dd00140" [label=Nicker]
+	"/m/0ch8v" -> "/m/0ffhf"
+	"/m/0ffhf" [label="Donkey, ass"]
+	"/m/0ch8v" -> "/m/01xq0k1"
+	"/m/01xq0k1" [label="Cattle, bovinae"]
+	"/m/01xq0k1" -> "/m/07rpkh9"
+	"/m/07rpkh9" [label=Moo]
+	"/m/01xq0k1" -> "/m/0239kh"
+	"/m/0239kh" [label=Cowbell]
+	"/m/01xq0k1" -> "/m/01hhp3"
+	"/m/01hhp3" [label=Yak]
+	"/m/0ch8v" -> "/m/068zj"
+	"/m/068zj" [label=Pig]
+	"/m/068zj" -> "/t/dd00018"
+	"/t/dd00018" [label=Oink]
+	"/m/0ch8v" -> "/m/03fwl"
+	"/m/03fwl" [label=Goat]
+	"/m/03fwl" -> "/m/07q0h5t"
+	"/m/07q0h5t" [label=Bleat]
+	"/m/0ch8v" -> "/m/07bgp"
+	"/m/07bgp" [label=Sheep]
+	"/m/07bgp" -> "/m/07q0h5t"
+	"/m/07q0h5t" [label=Bleat]
+	"/m/0ch8v" -> "/m/025rv6n"
+	"/m/025rv6n" [label=Fowl]
+	"/m/025rv6n" -> "/m/09b5t"
+	"/m/09b5t" [label="Chicken, rooster"]
+	"/m/09b5t" -> "/m/07st89h"
+	"/m/07st89h" [label=Cluck]
+	"/m/09b5t" -> "/m/07qn5dc"
+	"/m/07qn5dc" [label="Crowing, cock-a-doodle-doo"]
+	"/m/025rv6n" -> "/m/01rd7k"
+	"/m/01rd7k" [label=Turkey]
+	"/m/01rd7k" -> "/m/07svc2k"
+	"/m/07svc2k" [label=Gobble]
+	"/m/025rv6n" -> "/m/09ddx"
+	"/m/09ddx" [label=Duck]
+	"/m/09ddx" -> "/m/07qdb04"
+	"/m/07qdb04" [label=Quack]
+	"/m/025rv6n" -> "/m/0dbvp"
+	"/m/0dbvp" [label=Goose]
+	"/m/0dbvp" -> "/m/07qwf61"
+	"/m/07qwf61" [label=Honk]
+	"/m/0jbk" -> "/m/01280g"
+	"/m/01280g" [label="Wild animals"]
+	"/m/01280g" -> "/m/0cdnk"
+	"/m/0cdnk" [label="Roaring cats (lions, tigers)"]
+	"/m/0cdnk" -> "/m/04cvmfc"
+	"/m/04cvmfc" [label=Roar]
+	"/m/0cdnk" -> "/m/0ghcn6"
+	"/m/0ghcn6" [label=Growling]
+	"/m/01280g" -> "/m/015p6"
+	"/m/015p6" [label=Bird]
+	"/m/015p6" -> "/m/020bb7"
+	"/m/020bb7" [label="Bird vocalization, bird call, bird song"]
+	"/m/020bb7" -> "/m/07pggtn"
+	"/m/07pggtn" [label="Chirp, tweet"]
+	"/m/020bb7" -> "/m/07sx8x_"
+	"/m/07sx8x_" [label=Squawk]
+	"/m/015p6" -> "/m/0h0rv"
+	"/m/0h0rv" [label="Pigeon, dove"]
+	"/m/0h0rv" -> "/m/07r_25d"
+	"/m/07r_25d" [label=Coo]
+	"/m/015p6" -> "/m/04s8yn"
+	"/m/04s8yn" [label=Crow]
+	"/m/04s8yn" -> "/m/07r5c2p"
+	"/m/07r5c2p" [label=Caw]
+	"/m/015p6" -> "/m/09d5_"
+	"/m/09d5_" [label=Owl]
+	"/m/09d5_" -> "/m/07r_80w"
+	"/m/07r_80w" [label=Hoot]
+	"/m/015p6" -> "/m/01dwxx"
+	"/m/01dwxx" [label="Gull, seagull"]
+	"/m/015p6" -> "/m/05_wcq"
+	"/m/05_wcq" [label="Bird flight, flapping wings"]
+	"/m/01280g" -> "/m/01z5f"
+	"/m/01z5f" [label="Canidae, dogs, wolves"]
+	"/m/01z5f" -> "/m/07qf0zm"
+	"/m/07qf0zm" [label=Howl]
+	"/m/01z5f" -> "/m/0ghcn6"
+	"/m/0ghcn6" [label=Growling]
+	"/m/01280g" -> "/m/06hps"
+	"/m/06hps" [label="Rodents, rats, mice"]
+	"/m/06hps" -> "/m/04rmv"
+	"/m/04rmv" [label=Mouse]
+	"/m/06hps" -> "/m/02021"
+	"/m/02021" [label=Chipmunk]
+	"/m/06hps" -> "/m/07r4gkf"
+	"/m/07r4gkf" [label=Patter]
+	"/m/01280g" -> "/m/03vt0"
+	"/m/03vt0" [label=Insect]
+	"/m/03vt0" -> "/m/09xqv"
+	"/m/09xqv" [label=Cricket]
+	"/m/03vt0" -> "/m/09f96"
+	"/m/09f96" [label=Mosquito]
+	"/m/03vt0" -> "/m/0h2mp"
+	"/m/0h2mp" [label="Fly, housefly"]
+	"/m/0h2mp" -> "/m/07pjwq1"
+	"/m/07pjwq1" [label=Buzz]
+	"/m/03vt0" -> "/m/01h3n"
+	"/m/01h3n" [label="Bee, wasp, etc."]
+	"/m/01h3n" -> "/m/07pjwq1"
+	"/m/07pjwq1" [label=Buzz]
+	"/m/01280g" -> "/m/09ld4"
+	"/m/09ld4" [label=Frog]
+	"/m/09ld4" -> "/m/07st88b"
+	"/m/07st88b" [label=Croak]
+	"/m/01280g" -> "/m/078jl"
+	"/m/078jl" [label=Snake]
+	"/m/078jl" -> "/m/07rjwbb"
+	"/m/07rjwbb" [label=Hiss]
+	"/m/078jl" -> "/m/07qn4z3"
+	"/m/07qn4z3" [label=Rattle]
+	"/m/01280g" -> "/m/032n05"
+	"/m/032n05" [label="Whale vocalization"]
+}

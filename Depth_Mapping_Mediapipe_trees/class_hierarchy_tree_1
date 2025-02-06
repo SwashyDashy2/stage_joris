@@ -1,0 +1,172 @@
+// Class Hierarchy Tree 1
+digraph {
+	"/m/0dgw9r" [label="Human sounds"]
+	"/m/0dgw9r" -> "/m/09l8g"
+	"/m/09l8g" [label="Human voice"]
+	"/m/09l8g" -> "/m/09x0r"
+	"/m/09x0r" [label=Speech]
+	"/m/09x0r" -> "/m/05zppz"
+	"/m/05zppz" [label="Male speech, man speaking"]
+	"/m/09x0r" -> "/m/02zsn"
+	"/m/02zsn" [label="Female speech, woman speaking"]
+	"/m/09x0r" -> "/m/0ytgt"
+	"/m/0ytgt" [label="Child speech, kid speaking"]
+	"/m/09x0r" -> "/m/01h8n0"
+	"/m/01h8n0" [label=Conversation]
+	"/m/09x0r" -> "/m/02qldy"
+	"/m/02qldy" [label="Narration, monologue"]
+	"/m/09x0r" -> "/m/0261r1"
+	"/m/0261r1" [label=Babbling]
+	"/m/09x0r" -> "/m/0brhx"
+	"/m/0brhx" [label="Speech synthesizer"]
+	"/m/09l8g" -> "/m/07p6fty"
+	"/m/07p6fty" [label=Shout]
+	"/m/07p6fty" -> "/m/07q4ntr"
+	"/m/07q4ntr" [label=Bellow]
+	"/m/07p6fty" -> "/m/07rwj3x"
+	"/m/07rwj3x" [label=Whoop]
+	"/m/07p6fty" -> "/m/07sr1lc"
+	"/m/07sr1lc" [label=Yell]
+	"/m/07p6fty" -> "/m/04gy_2"
+	"/m/04gy_2" [label="Battle cry"]
+	"/m/07p6fty" -> "/t/dd00135"
+	"/t/dd00135" [label="Children shouting"]
+	"/m/09l8g" -> "/m/03qc9zr"
+	"/m/03qc9zr" [label=Screaming]
+	"/m/09l8g" -> "/m/02rtxlg"
+	"/m/02rtxlg" [label=Whispering]
+	"/m/09l8g" -> "/m/01j3sz"
+	"/m/01j3sz" [label=Laughter]
+	"/m/01j3sz" -> "/t/dd00001"
+	"/t/dd00001" [label="Baby laughter"]
+	"/m/01j3sz" -> "/m/07r660_"
+	"/m/07r660_" [label=Giggle]
+	"/m/01j3sz" -> "/m/07s04w4"
+	"/m/07s04w4" [label=Snicker]
+	"/m/01j3sz" -> "/m/07sq110"
+	"/m/07sq110" [label="Belly laugh"]
+	"/m/01j3sz" -> "/m/07rgt08"
+	"/m/07rgt08" [label="Chuckle, chortle"]
+	"/m/09l8g" -> "/m/0463cq4"
+	"/m/0463cq4" [label="Crying, sobbing"]
+	"/m/0463cq4" -> "/t/dd00002"
+	"/t/dd00002" [label="Baby cry, infant cry"]
+	"/m/0463cq4" -> "/m/07qz6j3"
+	"/m/07qz6j3" [label=Whimper]
+	"/m/09l8g" -> "/m/07qw_06"
+	"/m/07qw_06" [label="Wail, moan"]
+	"/m/09l8g" -> "/m/07plz5l"
+	"/m/07plz5l" [label=Sigh]
+	"/m/09l8g" -> "/m/015lz1"
+	"/m/015lz1" [label=Singing]
+	"/m/015lz1" -> "/m/0l14jd"
+	"/m/0l14jd" [label=Choir]
+	"/m/015lz1" -> "/m/01swy6"
+	"/m/01swy6" [label=Yodeling]
+	"/m/015lz1" -> "/m/02bk07"
+	"/m/02bk07" [label=Chant]
+	"/m/02bk07" -> "/m/01c194"
+	"/m/01c194" [label=Mantra]
+	"/m/015lz1" -> "/t/dd00003"
+	"/t/dd00003" [label="Male singing"]
+	"/m/015lz1" -> "/t/dd00004"
+	"/t/dd00004" [label="Female singing"]
+	"/m/015lz1" -> "/t/dd00005"
+	"/t/dd00005" [label="Child singing"]
+	"/m/015lz1" -> "/t/dd00006"
+	"/t/dd00006" [label="Synthetic singing"]
+	"/m/015lz1" -> "/m/06bxc"
+	"/m/06bxc" [label=Rapping]
+	"/m/09l8g" -> "/m/02fxyj"
+	"/m/02fxyj" [label=Humming]
+	"/m/09l8g" -> "/m/07s2xch"
+	"/m/07s2xch" [label=Groan]
+	"/m/09l8g" -> "/m/07r4k75"
+	"/m/07r4k75" [label=Grunt]
+	"/m/09l8g" -> "/m/01j423"
+	"/m/01j423" [label=Yawn]
+	"/m/0dgw9r" -> "/m/01w250"
+	"/m/01w250" [label=Whistling]
+	"/m/01w250" -> "/m/079vc8"
+	"/m/079vc8" [label="Wolf-whistling"]
+	"/m/0dgw9r" -> "/m/09hlz4"
+	"/m/09hlz4" [label="Respiratory sounds"]
+	"/m/09hlz4" -> "/m/0lyf6"
+	"/m/0lyf6" [label=Breathing]
+	"/m/0lyf6" -> "/m/07mzm6"
+	"/m/07mzm6" [label=Wheeze]
+	"/m/0lyf6" -> "/m/01d3sd"
+	"/m/01d3sd" [label=Snoring]
+	"/m/0lyf6" -> "/m/07s0dtb"
+	"/m/07s0dtb" [label=Gasp]
+	"/m/0lyf6" -> "/m/07pyy8b"
+	"/m/07pyy8b" [label=Pant]
+	"/m/0lyf6" -> "/m/07q0yl5"
+	"/m/07q0yl5" [label=Snort]
+	"/m/09hlz4" -> "/m/01b_21"
+	"/m/01b_21" [label=Cough]
+	"/m/01b_21" -> "/m/0dl9sf8"
+	"/m/0dl9sf8" [label="Throat clearing"]
+	"/m/09hlz4" -> "/m/01hsr_"
+	"/m/01hsr_" [label=Sneeze]
+	"/m/09hlz4" -> "/m/07ppn3j"
+	"/m/07ppn3j" [label=Sniff]
+	"/m/0dgw9r" -> "/m/0bpl036"
+	"/m/0bpl036" [label="Human locomotion"]
+	"/m/0bpl036" -> "/m/06h7j"
+	"/m/06h7j" [label=Run]
+	"/m/0bpl036" -> "/m/07qv_x_"
+	"/m/07qv_x_" [label=Shuffle]
+	"/m/0bpl036" -> "/m/07pbtc8"
+	"/m/07pbtc8" [label="Walk, footsteps"]
+	"/m/0dgw9r" -> "/m/0160x5"
+	"/m/0160x5" [label=Digestive]
+	"/m/0160x5" -> "/m/03cczk"
+	"/m/03cczk" [label="Chewing, mastication"]
+	"/m/0160x5" -> "/m/07pdhp0"
+	"/m/07pdhp0" [label=Biting]
+	"/m/0160x5" -> "/m/0939n_"
+	"/m/0939n_" [label=Gargling]
+	"/m/0160x5" -> "/m/01g90h"
+	"/m/01g90h" [label="Stomach rumble"]
+	"/m/0160x5" -> "/m/03q5_w"
+	"/m/03q5_w" [label="Burping, eructation"]
+	"/m/0160x5" -> "/m/02p3nc"
+	"/m/02p3nc" [label=Hiccup]
+	"/m/0160x5" -> "/m/02_nn"
+	"/m/02_nn" [label=Fart]
+	"/m/0dgw9r" -> "/m/0k65p"
+	"/m/0k65p" [label=Hands]
+	"/m/0k65p" -> "/m/025_jnm"
+	"/m/025_jnm" [label="Finger snapping"]
+	"/m/0k65p" -> "/m/0l15bq"
+	"/m/0l15bq" [label=Clapping]
+	"/m/0dgw9r" -> "/m/01jg02"
+	"/m/01jg02" [label="Heart sounds, heartbeat"]
+	"/m/01jg02" -> "/m/01jg1z"
+	"/m/01jg1z" [label="Heart murmur"]
+	"/m/0dgw9r" -> "/m/04xp5v"
+	"/m/04xp5v" [label="Otoacoustic emission"]
+	"/m/04xp5v" -> "/m/0pv6y"
+	"/m/0pv6y" [label="Tinnitus, ringing in the ears"]
+	"/m/0dgw9r" -> "/t/dd00012"
+	"/t/dd00012" [label="Human group actions"]
+	"/t/dd00012" -> "/m/0l15bq"
+	"/m/0l15bq" [label=Clapping]
+	"/t/dd00012" -> "/m/053hz1"
+	"/m/053hz1" [label=Cheering]
+	"/t/dd00012" -> "/m/028ght"
+	"/m/028ght" [label=Applause]
+	"/t/dd00012" -> "/m/07rkbfh"
+	"/m/07rkbfh" [label=Chatter]
+	"/t/dd00012" -> "/m/03qtwd"
+	"/m/03qtwd" [label=Crowd]
+	"/t/dd00012" -> "/m/07qfr4h"
+	"/m/07qfr4h" [label="Hubbub, speech noise, speech babble"]
+	"/t/dd00012" -> "/m/04v5dt"
+	"/m/04v5dt" [label=Booing]
+	"/t/dd00012" -> "/t/dd00013"
+	"/t/dd00013" [label="Children playing"]
+	"/t/dd00012" -> "/t/dd00135"
+	"/t/dd00135" [label="Children shouting"]
+}

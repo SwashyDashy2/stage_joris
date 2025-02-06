@@ -1,0 +1,148 @@
+// Class Hierarchy Tree 6
+digraph {
+	"/t/dd00098" [label="Source-ambiguous sounds"]
+	"/t/dd00098" -> "/t/dd00099"
+	"/t/dd00099" [label="Generic impact sounds"]
+	"/t/dd00099" -> "/m/07pws3f"
+	"/m/07pws3f" [label=Bang]
+	"/t/dd00099" -> "/m/07ryjzk"
+	"/m/07ryjzk" [label="Slap, smack"]
+	"/t/dd00099" -> "/m/07rdhzs"
+	"/m/07rdhzs" [label="Whack, thwack"]
+	"/t/dd00099" -> "/m/07pjjrj"
+	"/m/07pjjrj" [label="Smash, crash"]
+	"/t/dd00099" -> "/m/07pc8lb"
+	"/m/07pc8lb" [label=Breaking]
+	"/t/dd00099" -> "/m/07pqn27"
+	"/m/07pqn27" [label=Bouncing]
+	"/t/dd00099" -> "/m/07r4wb8"
+	"/m/07r4wb8" [label=Knock]
+	"/t/dd00099" -> "/m/07qcpgn"
+	"/m/07qcpgn" [label=Tap]
+	"/t/dd00099" -> "/m/07qnq_y"
+	"/m/07qnq_y" [label="Thump, thud"]
+	"/m/07qnq_y" -> "/m/07rrh0c"
+	"/m/07rrh0c" [label=Thunk]
+	"/m/07qnq_y" -> "/t/dd00108"
+	"/t/dd00108" [label=Clunk]
+	"/t/dd00099" -> "/m/07rbp7_"
+	"/m/07rbp7_" [label=Whip]
+	"/t/dd00099" -> "/m/07pyf11"
+	"/m/07pyf11" [label=Flap]
+	"/t/dd00098" -> "/t/dd00109"
+	"/t/dd00109" [label="Surface contact"]
+	"/t/dd00109" -> "/m/07qb_dv"
+	"/m/07qb_dv" [label=Scratch]
+	"/t/dd00109" -> "/m/07qv4k0"
+	"/m/07qv4k0" [label=Scrape]
+	"/t/dd00109" -> "/m/07pdjhy"
+	"/m/07pdjhy" [label=Rub]
+	"/t/dd00109" -> "/m/07s8j8t"
+	"/m/07s8j8t" [label=Roll]
+	"/t/dd00109" -> "/m/07pt6mm"
+	"/m/07pt6mm" [label=Grind]
+	"/t/dd00098" -> "/t/dd00110"
+	"/t/dd00110" [label="Deformable shell"]
+	"/t/dd00110" -> "/m/07plct2"
+	"/m/07plct2" [label=Crushing]
+	"/t/dd00110" -> "/t/dd00112"
+	"/t/dd00112" [label="Crumpling, crinkling"]
+	"/t/dd00110" -> "/m/07qcx4z"
+	"/m/07qcx4z" [label=Tearing]
+	"/t/dd00098" -> "/m/05n1m"
+	"/m/05n1m" [label=Onomatopoeia]
+	"/m/05n1m" -> "/t/dd000138"
+	"/t/dd000138" [label="Brief tone"]
+	"/t/dd000138" -> "/m/02fs_r"
+	"/m/02fs_r" [label="Beep, bleep"]
+	"/t/dd000138" -> "/m/07qwdck"
+	"/m/07qwdck" [label=Ping]
+	"/t/dd000138" -> "/m/07phxs1"
+	"/m/07phxs1" [label=Ding]
+	"/t/dd000138" -> "/m/07rv4dm"
+	"/m/07rv4dm" [label=Clang]
+	"/t/dd000138" -> "/m/07rpk1c"
+	"/m/07rpk1c" [label=Twang]
+	"/t/dd000138" -> "/m/07pggtn"
+	"/m/07pggtn" [label="Chirp, tweet"]
+	"/t/dd000138" -> "/m/07pjwq1"
+	"/m/07pjwq1" [label=Buzz]
+	"/t/dd000138" -> "/m/07q6cd_"
+	"/m/07q6cd_" [label=Squeak]
+	"/t/dd000138" -> "/m/07s02z0"
+	"/m/07s02z0" [label=Squeal]
+	"/t/dd000138" -> "/m/07q8k13"
+	"/m/07q8k13" [label=Screech]
+	"/m/05n1m" -> "/m/07rjwbb"
+	"/m/07rjwbb" [label=Hiss]
+	"/m/05n1m" -> "/m/07qh7jl"
+	"/m/07qh7jl" [label=Creak]
+	"/m/05n1m" -> "/m/07qn4z3"
+	"/m/07qn4z3" [label=Rattle]
+	"/m/05n1m" -> "/m/07rqsjt"
+	"/m/07rqsjt" [label="Whoosh, swoosh, swish"]
+	"/m/05n1m" -> "/m/07qwyj0"
+	"/m/07qwyj0" [label=Rustle]
+	"/m/05n1m" -> "/m/07s34ls"
+	"/m/07s34ls" [label=Whir]
+	"/m/05n1m" -> "/m/07qmpdm"
+	"/m/07qmpdm" [label=Clatter]
+	"/m/05n1m" -> "/m/07p9k1k"
+	"/m/07p9k1k" [label=Sizzle]
+	"/m/05n1m" -> "/m/07qc9xj"
+	"/m/07qc9xj" [label=Clicking]
+	"/m/07qc9xj" -> "/m/07qjznt"
+	"/m/07qjznt" [label=Tick]
+	"/m/07qc9xj" -> "/m/07rv9rh"
+	"/m/07rv9rh" [label="Clip-clop"]
+	"/m/07qc9xj" -> "/m/07rwm0c"
+	"/m/07rwm0c" [label="Clickety-clack"]
+	"/m/05n1m" -> "/m/07phhsh"
+	"/m/07phhsh" [label=Rumble]
+	"/m/05n1m" -> "/m/07r_r9m"
+	"/m/07r_r9m" [label=Blare]
+	"/m/05n1m" -> "/m/07qyrcz"
+	"/m/07qyrcz" [label=Plop]
+	"/m/05n1m" -> "/m/07qfgpx"
+	"/m/07qfgpx" [label="Jingle, tinkle"]
+	"/m/05n1m" -> "/t/dd00118"
+	"/t/dd00118" [label=Fizz]
+	"/m/05n1m" -> "/m/07q34h3"
+	"/m/07q34h3" [label=Puff]
+	"/m/05n1m" -> "/m/07rcgpl"
+	"/m/07rcgpl" [label=Hum]
+	"/m/05n1m" -> "/m/07qlwh6"
+	"/m/07qlwh6" [label=Squish]
+	"/m/05n1m" -> "/m/07p78v5"
+	"/m/07p78v5" [label=Zing]
+	"/m/05n1m" -> "/t/dd00121"
+	"/t/dd00121" [label=Boing]
+	"/m/05n1m" -> "/m/07pzfmf"
+	"/m/07pzfmf" [label=Crackle]
+	"/m/05n1m" -> "/m/07s12q4"
+	"/m/07s12q4" [label=Crunch]
+	"/m/05n1m" -> "/m/07qs1cx"
+	"/m/07qs1cx" [label=Crack]
+	"/m/05n1m" -> "/m/07pc8l3"
+	"/m/07pc8l3" [label=Snap]
+	"/t/dd00098" -> "/m/028v0c"
+	"/m/028v0c" [label=Silence]
+	"/t/dd00098" -> "/t/dd00122"
+	"/t/dd00122" [label="Other sourceless"]
+	"/t/dd00122" -> "/m/01v_m0"
+	"/m/01v_m0" [label="Sine wave"]
+	"/m/01v_m0" -> "/m/0b9m1"
+	"/m/0b9m1" [label=Harmonic]
+	"/m/01v_m0" -> "/m/0hdsk"
+	"/m/0hdsk" [label="Chirp tone"]
+	"/t/dd00122" -> "/m/0c1dj"
+	"/m/0c1dj" [label="Sound effect"]
+	"/t/dd00122" -> "/m/07pt_g0"
+	"/m/07pt_g0" [label=Pulse]
+	"/t/dd00122" -> "/m/01fhw5"
+	"/m/01fhw5" [label=Infrasound]
+	"/t/dd00122" -> "/m/017gp"
+	"/m/017gp" [label="Bass (frequency range)"]
+	"/t/dd00122" -> "/m/05szwhw"
+	"/m/05szwhw" [label="Ringing (of resonator)"]
+}

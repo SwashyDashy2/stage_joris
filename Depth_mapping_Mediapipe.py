@@ -1,3 +1,5 @@
+from graphviz import Digraph
+
 Classes_List = [
   {
     "id": "/m/0dgw9r",
@@ -10674,3 +10676,30 @@ Classes_List = [
     "depth": 2
   }
 ]
+
+# A function to build the tree recursively
+def build_tree(data, parent_id, graph):
+    # Find the current node by its id
+    current_node = next((item for item in data if item["id"] == parent_id), None)
+    if current_node:
+        # Add the node to the graph
+        graph.node(parent_id, current_node["name"])
+
+        # Recursively add child nodes
+        for child_id in current_node["child_ids"]:
+            graph.edge(parent_id, child_id)  # Create an edge from parent to child
+            build_tree(data, child_id, graph)  # Recur for the child
+
+# Find all nodes with depth 0 (top-level nodes for each tree)
+root_nodes = [item for item in Classes_List if item["depth"] == 0]
+
+# For each root node, create a separate tree
+for i, root_node in enumerate(root_nodes):
+    # Initialize the Graphviz Digraph for each tree
+    dot = Digraph(comment=f'Class Hierarchy Tree {i+1}')
+    
+    # Start building the tree from the root node
+    build_tree(Classes_List, root_node["id"], dot)
+    
+    # Render and save the tree
+    dot.render(f'class_hierarchy_tree_{i+1}', view=True)  # Separate file for each tree

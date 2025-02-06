@@ -1,0 +1,416 @@
+// Class Hierarchy Tree 5
+digraph {
+	"/t/dd00041" [label="Sounds of things"]
+	"/t/dd00041" -> "/m/07yv9"
+	"/m/07yv9" [label=Vehicle]
+	"/m/07yv9" -> "/m/019jd"
+	"/m/019jd" [label="Boat, Water vehicle"]
+	"/m/019jd" -> "/m/0hsrw"
+	"/m/0hsrw" [label="Sailboat, sailing ship"]
+	"/m/019jd" -> "/m/056ks2"
+	"/m/056ks2" [label="Rowboat, canoe, kayak"]
+	"/m/019jd" -> "/m/02rlv9"
+	"/m/02rlv9" [label="Motorboat, speedboat"]
+	"/m/019jd" -> "/m/06q74"
+	"/m/06q74" [label=Ship]
+	"/m/07yv9" -> "/m/012f08"
+	"/m/012f08" [label="Motor vehicle (road)"]
+	"/m/012f08" -> "/m/0k4j"
+	"/m/0k4j" [label=Car]
+	"/m/0k4j" -> "/m/0912c9"
+	"/m/0912c9" [label="Vehicle horn, car horn, honking"]
+	"/m/0912c9" -> "/m/07qv_d5"
+	"/m/07qv_d5" [label=Toot]
+	"/m/0k4j" -> "/m/02mfyn"
+	"/m/02mfyn" [label="Car alarm"]
+	"/m/0k4j" -> "/m/04gxbd"
+	"/m/04gxbd" [label="Power windows, electric windows"]
+	"/m/0k4j" -> "/m/07rknqz"
+	"/m/07rknqz" [label=Skidding]
+	"/m/0k4j" -> "/m/0h9mv"
+	"/m/0h9mv" [label="Tire squeal"]
+	"/m/0k4j" -> "/t/dd00134"
+	"/t/dd00134" [label="Car passing by"]
+	"/m/0k4j" -> "/m/0ltv"
+	"/m/0ltv" [label="Race car, auto racing"]
+	"/m/012f08" -> "/m/07r04"
+	"/m/07r04" [label=Truck]
+	"/m/07r04" -> "/m/0gvgw0"
+	"/m/0gvgw0" [label="Air brake"]
+	"/m/07r04" -> "/m/05x_td"
+	"/m/05x_td" [label="Air horn, truck horn"]
+	"/m/07r04" -> "/m/02rhddq"
+	"/m/02rhddq" [label="Reversing beeps"]
+	"/m/07r04" -> "/m/03cl9h"
+	"/m/03cl9h" [label="Ice cream truck, ice cream van"]
+	"/m/012f08" -> "/m/01bjv"
+	"/m/01bjv" [label=Bus]
+	"/m/012f08" -> "/m/03j1ly"
+	"/m/03j1ly" [label="Emergency vehicle"]
+	"/m/03j1ly" -> "/m/04qvtq"
+	"/m/04qvtq" [label="Police car (siren)"]
+	"/m/03j1ly" -> "/m/012n7d"
+	"/m/012n7d" [label="Ambulance (siren)"]
+	"/m/03j1ly" -> "/m/012ndj"
+	"/m/012ndj" [label="Fire engine, fire truck (siren)"]
+	"/m/012f08" -> "/m/04_sv"
+	"/m/04_sv" [label=Motorcycle]
+	"/m/012f08" -> "/m/0btp2"
+	"/m/0btp2" [label="Traffic noise, roadway noise"]
+	"/m/07yv9" -> "/m/06d_3"
+	"/m/06d_3" [label="Rail transport"]
+	"/m/06d_3" -> "/m/07jdr"
+	"/m/07jdr" [label=Train]
+	"/m/07jdr" -> "/m/04zmvq"
+	"/m/04zmvq" [label="Train whistle"]
+	"/m/07jdr" -> "/m/0284vy3"
+	"/m/0284vy3" [label="Train horn"]
+	"/m/06d_3" -> "/m/01g50p"
+	"/m/01g50p" [label="Railroad car, train wagon"]
+	"/m/06d_3" -> "/t/dd00048"
+	"/t/dd00048" [label="Train wheels squealing"]
+	"/m/06d_3" -> "/m/0195fx"
+	"/m/0195fx" [label="Subway, metro, underground"]
+	"/m/07yv9" -> "/m/0k5j"
+	"/m/0k5j" [label=Aircraft]
+	"/m/0k5j" -> "/m/014yck"
+	"/m/014yck" [label="Aircraft engine"]
+	"/m/014yck" -> "/m/04229"
+	"/m/04229" [label="Jet engine"]
+	"/m/014yck" -> "/m/02l6bg"
+	"/m/02l6bg" [label="Propeller, airscrew"]
+	"/m/0k5j" -> "/m/09ct_"
+	"/m/09ct_" [label=Helicopter]
+	"/m/0k5j" -> "/m/0cmf2"
+	"/m/0cmf2" [label="Fixed-wing aircraft, airplane"]
+	"/m/07yv9" -> "/t/dd00061"
+	"/t/dd00061" [label="Non-motorized land vehicle"]
+	"/t/dd00061" -> "/m/0199g"
+	"/m/0199g" [label=Bicycle]
+	"/m/0199g" -> "/m/0gy1t2s"
+	"/m/0gy1t2s" [label="Bicycle bell"]
+	"/t/dd00061" -> "/m/06_fw"
+	"/m/06_fw" [label=Skateboard]
+	"/t/dd00041" -> "/m/02mk9"
+	"/m/02mk9" [label=Engine]
+	"/m/02mk9" -> "/t/dd00065"
+	"/t/dd00065" [label="Light engine (high frequency)"]
+	"/t/dd00065" -> "/m/08j51y"
+	"/m/08j51y" [label="Dental drill, dentist's drill"]
+	"/t/dd00065" -> "/m/01yg9g"
+	"/m/01yg9g" [label="Lawn mower"]
+	"/t/dd00065" -> "/m/01j4z9"
+	"/m/01j4z9" [label=Chainsaw]
+	"/m/02mk9" -> "/t/dd00066"
+	"/t/dd00066" [label="Medium engine (mid frequency)"]
+	"/m/02mk9" -> "/t/dd00067"
+	"/t/dd00067" [label="Heavy engine (low frequency)"]
+	"/m/02mk9" -> "/m/04229"
+	"/m/04229" [label="Jet engine"]
+	"/m/02mk9" -> "/m/01h82_"
+	"/m/01h82_" [label="Engine knocking"]
+	"/m/02mk9" -> "/t/dd00130"
+	"/t/dd00130" [label="Engine starting"]
+	"/m/02mk9" -> "/m/07pb8fc"
+	"/m/07pb8fc" [label=Idling]
+	"/m/02mk9" -> "/m/07q2z82"
+	"/m/07q2z82" [label="Accelerating, revving, vroom"]
+	"/t/dd00041" -> "/t/dd00071"
+	"/t/dd00071" [label="Domestic sounds, home sounds"]
+	"/t/dd00071" -> "/m/02dgv"
+	"/m/02dgv" [label=Door]
+	"/m/02dgv" -> "/m/03wwcy"
+	"/m/03wwcy" [label=Doorbell]
+	"/m/03wwcy" -> "/m/07r67yg"
+	"/m/07r67yg" [label="Ding-dong"]
+	"/m/02dgv" -> "/m/02y_763"
+	"/m/02y_763" [label="Sliding door"]
+	"/m/02dgv" -> "/m/07rjzl8"
+	"/m/07rjzl8" [label=Slam]
+	"/m/02dgv" -> "/m/07r4wb8"
+	"/m/07r4wb8" [label=Knock]
+	"/m/02dgv" -> "/m/07qcpgn"
+	"/m/07qcpgn" [label=Tap]
+	"/m/02dgv" -> "/m/07q6cd_"
+	"/m/07q6cd_" [label=Squeak]
+	"/t/dd00071" -> "/m/0642b4"
+	"/m/0642b4" [label="Cupboard open or close"]
+	"/t/dd00071" -> "/m/0fqfqc"
+	"/m/0fqfqc" [label="Drawer open or close"]
+	"/t/dd00071" -> "/m/04brg2"
+	"/m/04brg2" [label="Dishes, pots, and pans"]
+	"/t/dd00071" -> "/m/023pjk"
+	"/m/023pjk" [label="Cutlery, silverware"]
+	"/t/dd00071" -> "/m/07pn_8q"
+	"/m/07pn_8q" [label="Chopping (food)"]
+	"/t/dd00071" -> "/m/0dxrf"
+	"/m/0dxrf" [label="Frying (food)"]
+	"/t/dd00071" -> "/m/0fx9l"
+	"/m/0fx9l" [label="Microwave oven"]
+	"/t/dd00071" -> "/m/02pjr4"
+	"/m/02pjr4" [label=Blender]
+	"/t/dd00071" -> "/g/11b630rrvh"
+	"/g/11b630rrvh" [label="Kettle whistle"]
+	"/t/dd00071" -> "/m/02jz0l"
+	"/m/02jz0l" [label="Water tap, faucet"]
+	"/t/dd00071" -> "/m/0130jx"
+	"/m/0130jx" [label="Sink (filling or washing)"]
+	"/t/dd00071" -> "/m/03dnzn"
+	"/m/03dnzn" [label="Bathtub (filling or washing)"]
+	"/t/dd00071" -> "/m/03wvsk"
+	"/m/03wvsk" [label="Hair dryer"]
+	"/t/dd00071" -> "/m/01jt3m"
+	"/m/01jt3m" [label="Toilet flush"]
+	"/t/dd00071" -> "/m/012xff"
+	"/m/012xff" [label=Toothbrush]
+	"/m/012xff" -> "/m/04fgwm"
+	"/m/04fgwm" [label="Electric toothbrush"]
+	"/t/dd00071" -> "/m/0d31p"
+	"/m/0d31p" [label="Vacuum cleaner"]
+	"/t/dd00071" -> "/m/01s0vc"
+	"/m/01s0vc" [label="Zipper (clothing)"]
+	"/t/dd00071" -> "/m/0zmy2j9"
+	"/m/0zmy2j9" [label="Velcro, hook and loop fastener"]
+	"/t/dd00071" -> "/m/03v3yw"
+	"/m/03v3yw" [label="Keys jangling"]
+	"/t/dd00071" -> "/m/0242l"
+	"/m/0242l" [label="Coin (dropping)"]
+	"/t/dd00071" -> "/m/05mxj0q"
+	"/m/05mxj0q" [label="Packing tape, duct tape"]
+	"/t/dd00071" -> "/m/01lsmm"
+	"/m/01lsmm" [label=Scissors]
+	"/t/dd00071" -> "/m/02g901"
+	"/m/02g901" [label="Electric shaver, electric razor"]
+	"/t/dd00071" -> "/m/05rj2"
+	"/m/05rj2" [label="Shuffling cards"]
+	"/t/dd00071" -> "/m/0316dw"
+	"/m/0316dw" [label=Typing]
+	"/m/0316dw" -> "/m/0c2wf"
+	"/m/0c2wf" [label=Typewriter]
+	"/m/0316dw" -> "/m/01m2v"
+	"/m/01m2v" [label="Computer keyboard"]
+	"/t/dd00071" -> "/m/081rb"
+	"/m/081rb" [label=Writing]
+	"/t/dd00041" -> "/m/0395lw"
+	"/m/0395lw" [label=Bell]
+	"/m/0395lw" -> "/m/03w41f"
+	"/m/03w41f" [label="Church bell"]
+	"/m/0395lw" -> "/m/0239kh"
+	"/m/0239kh" [label=Cowbell]
+	"/m/0395lw" -> "/m/027m70_"
+	"/m/027m70_" [label="Jingle bell"]
+	"/m/0395lw" -> "/m/0gy1t2s"
+	"/m/0gy1t2s" [label="Bicycle bell"]
+	"/m/0395lw" -> "/m/07n_g"
+	"/m/07n_g" [label="Tuning fork"]
+	"/m/0395lw" -> "/m/0f8s22"
+	"/m/0f8s22" [label=Chime]
+	"/m/0f8s22" -> "/m/026fgl"
+	"/m/026fgl" [label="Wind chime"]
+	"/m/0395lw" -> "/m/0150b9"
+	"/m/0150b9" [label="Change ringing (campanology)"]
+	"/t/dd00041" -> "/m/07pp_mv"
+	"/m/07pp_mv" [label=Alarm]
+	"/m/07pp_mv" -> "/m/07cx4"
+	"/m/07cx4" [label=Telephone]
+	"/m/07cx4" -> "/m/07pp8cl"
+	"/m/07pp8cl" [label="Telephone bell ringing"]
+	"/m/07cx4" -> "/m/01hnzm"
+	"/m/01hnzm" [label=Ringtone]
+	"/m/07cx4" -> "/m/01sb50"
+	"/m/01sb50" [label="Cellphone buzz, vibrating alert"]
+	"/m/07cx4" -> "/m/02c8p"
+	"/m/02c8p" [label="Telephone dialing, DTMF"]
+	"/m/07cx4" -> "/m/015jpf"
+	"/m/015jpf" [label="Dial tone"]
+	"/m/07cx4" -> "/m/01z47d"
+	"/m/01z47d" [label="Busy signal"]
+	"/m/07pp_mv" -> "/m/046dlr"
+	"/m/046dlr" [label="Alarm clock"]
+	"/m/07pp_mv" -> "/m/03kmc9"
+	"/m/03kmc9" [label=Siren]
+	"/m/03kmc9" -> "/m/04qvtq"
+	"/m/04qvtq" [label="Police car (siren)"]
+	"/m/03kmc9" -> "/m/012n7d"
+	"/m/012n7d" [label="Ambulance (siren)"]
+	"/m/03kmc9" -> "/m/012ndj"
+	"/m/012ndj" [label="Fire engine, fire truck (siren)"]
+	"/m/03kmc9" -> "/m/0dgbq"
+	"/m/0dgbq" [label="Civil defense siren"]
+	"/m/07pp_mv" -> "/m/03wwcy"
+	"/m/03wwcy" [label=Doorbell]
+	"/m/03wwcy" -> "/m/07r67yg"
+	"/m/07r67yg" [label="Ding-dong"]
+	"/m/07pp_mv" -> "/m/030rvx"
+	"/m/030rvx" [label=Buzzer]
+	"/m/07pp_mv" -> "/m/01y3hg"
+	"/m/01y3hg" [label="Smoke detector, smoke alarm"]
+	"/m/07pp_mv" -> "/m/0c3f7m"
+	"/m/0c3f7m" [label="Fire alarm"]
+	"/m/07pp_mv" -> "/m/02mfyn"
+	"/m/02mfyn" [label="Car alarm"]
+	"/m/07pp_mv" -> "/m/0912c9"
+	"/m/0912c9" [label="Vehicle horn, car horn, honking"]
+	"/m/0912c9" -> "/m/07qv_d5"
+	"/m/07qv_d5" [label=Toot]
+	"/m/07pp_mv" -> "/m/0gy1t2s"
+	"/m/0gy1t2s" [label="Bicycle bell"]
+	"/m/07pp_mv" -> "/m/05x_td"
+	"/m/05x_td" [label="Air horn, truck horn"]
+	"/m/07pp_mv" -> "/m/04fq5q"
+	"/m/04fq5q" [label=Foghorn]
+	"/m/07pp_mv" -> "/m/0l156k"
+	"/m/0l156k" [label=Whistle]
+	"/m/0l156k" -> "/g/11b630rrvh"
+	"/g/11b630rrvh" [label="Kettle whistle"]
+	"/m/0l156k" -> "/m/06hck5"
+	"/m/06hck5" [label="Steam whistle"]
+	"/t/dd00041" -> "/t/dd00077"
+	"/t/dd00077" [label=Mechanisms]
+	"/t/dd00077" -> "/m/02bm9n"
+	"/m/02bm9n" [label="Ratchet, pawl"]
+	"/t/dd00077" -> "/m/01x3z"
+	"/m/01x3z" [label=Clock]
+	"/m/01x3z" -> "/m/07qjznt"
+	"/m/07qjznt" [label=Tick]
+	"/m/01x3z" -> "/m/07qjznl"
+	"/m/07qjznl" [label="Tick-tock"]
+	"/t/dd00077" -> "/m/0l7xg"
+	"/m/0l7xg" [label=Gears]
+	"/t/dd00077" -> "/m/05zc1"
+	"/m/05zc1" [label=Pulleys]
+	"/t/dd00077" -> "/m/0llzx"
+	"/m/0llzx" [label="Sewing machine"]
+	"/t/dd00077" -> "/m/02x984l"
+	"/m/02x984l" [label="Mechanical fan"]
+	"/t/dd00077" -> "/m/025wky1"
+	"/m/025wky1" [label="Air conditioning"]
+	"/t/dd00077" -> "/m/024dl"
+	"/m/024dl" [label="Cash register"]
+	"/t/dd00077" -> "/m/01m4t"
+	"/m/01m4t" [label=Printer]
+	"/t/dd00077" -> "/m/0dv5r"
+	"/m/0dv5r" [label=Camera]
+	"/m/0dv5r" -> "/m/07bjf"
+	"/m/07bjf" [label="Single-lens reflex camera"]
+	"/t/dd00041" -> "/m/07k1x"
+	"/m/07k1x" [label=Tools]
+	"/m/07k1x" -> "/m/03l9g"
+	"/m/03l9g" [label=Hammer]
+	"/m/07k1x" -> "/m/03p19w"
+	"/m/03p19w" [label=Jackhammer]
+	"/m/07k1x" -> "/m/01b82r"
+	"/m/01b82r" [label=Sawing]
+	"/m/07k1x" -> "/m/02p01q"
+	"/m/02p01q" [label="Filing (rasp)"]
+	"/m/07k1x" -> "/m/023vsd"
+	"/m/023vsd" [label=Sanding]
+	"/m/07k1x" -> "/m/0_ksk"
+	"/m/0_ksk" [label="Power tool"]
+	"/m/0_ksk" -> "/m/01d380"
+	"/m/01d380" [label=Drill]
+	"/m/01d380" -> "/m/08j51y"
+	"/m/08j51y" [label="Dental drill, dentist's drill"]
+	"/t/dd00041" -> "/m/014zdl"
+	"/m/014zdl" [label=Explosion]
+	"/m/014zdl" -> "/m/032s66"
+	"/m/032s66" [label="Gunshot, gunfire"]
+	"/m/032s66" -> "/m/04zjc"
+	"/m/04zjc" [label="Machine gun"]
+	"/m/032s66" -> "/m/02z32qm"
+	"/m/02z32qm" [label=Fusillade]
+	"/m/032s66" -> "/m/0_1c"
+	"/m/0_1c" [label="Artillery fire"]
+	"/m/032s66" -> "/m/073cg4"
+	"/m/073cg4" [label="Cap gun"]
+	"/m/014zdl" -> "/m/0g6b5"
+	"/m/0g6b5" [label=Fireworks]
+	"/m/0g6b5" -> "/g/122z_qxw"
+	"/g/122z_qxw" [label=Firecracker]
+	"/m/014zdl" -> "/m/07qsvvw"
+	"/m/07qsvvw" [label="Burst, pop"]
+	"/m/014zdl" -> "/m/07pxg6y"
+	"/m/07pxg6y" [label=Eruption]
+	"/m/014zdl" -> "/m/07qqyl4"
+	"/m/07qqyl4" [label=Boom]
+	"/m/07qqyl4" -> "/m/0193bn"
+	"/m/0193bn" [label="Sonic boom"]
+	"/t/dd00041" -> "/m/083vt"
+	"/m/083vt" [label=Wood]
+	"/m/083vt" -> "/m/07pczhz"
+	"/m/07pczhz" [label=Chop]
+	"/m/083vt" -> "/m/07pl1bw"
+	"/m/07pl1bw" [label=Splinter]
+	"/m/083vt" -> "/m/07qs1cx"
+	"/m/07qs1cx" [label=Crack]
+	"/m/083vt" -> "/m/07pc8l3"
+	"/m/07pc8l3" [label=Snap]
+	"/t/dd00041" -> "/m/039jq"
+	"/m/039jq" [label=Glass]
+	"/m/039jq" -> "/m/07q7njn"
+	"/m/07q7njn" [label="Chink, clink"]
+	"/m/039jq" -> "/m/07rn7sz"
+	"/m/07rn7sz" [label=Shatter]
+	"/t/dd00041" -> "/m/04k94"
+	"/m/04k94" [label=Liquid]
+	"/m/04k94" -> "/m/07rrlb6"
+	"/m/07rrlb6" [label="Splash, splatter"]
+	"/m/07rrlb6" -> "/m/07p6mqd"
+	"/m/07p6mqd" [label=Slosh]
+	"/m/04k94" -> "/m/07qlwh6"
+	"/m/07qlwh6" [label=Squish]
+	"/m/04k94" -> "/m/07r5v4s"
+	"/m/07r5v4s" [label=Drip]
+	"/m/04k94" -> "/m/07prgkl"
+	"/m/07prgkl" [label=Pour]
+	"/m/07prgkl" -> "/m/07pqc89"
+	"/m/07pqc89" [label="Trickle, dribble"]
+	"/m/07prgkl" -> "/t/dd00088"
+	"/t/dd00088" [label=Gush]
+	"/m/04k94" -> "/m/07p7b8y"
+	"/m/07p7b8y" [label="Fill (with liquid)"]
+	"/m/04k94" -> "/m/07qlf79"
+	"/m/07qlf79" [label=Spray]
+	"/m/04k94" -> "/m/07ptzwd"
+	"/m/07ptzwd" [label="Pump (liquid)"]
+	"/m/04k94" -> "/m/07ptfmf"
+	"/m/07ptfmf" [label=Stir]
+	"/m/04k94" -> "/m/0dv3j"
+	"/m/0dv3j" [label=Boiling]
+	"/t/dd00041" -> "/t/dd00089"
+	"/t/dd00089" [label="Miscellaneous sources"]
+	"/t/dd00089" -> "/m/0790c"
+	"/m/0790c" [label=Sonar]
+	"/t/dd00089" -> "/m/04179zz"
+	"/m/04179zz" [label="Duck call (hunting tool)"]
+	"/t/dd00089" -> "/m/0dl83"
+	"/m/0dl83" [label=Arrow]
+	"/m/0dl83" -> "/m/07rqsjt"
+	"/m/07rqsjt" [label="Whoosh, swoosh, swish"]
+	"/m/0dl83" -> "/m/07qnq_y"
+	"/m/07qnq_y" [label="Thump, thud"]
+	"/m/07qnq_y" -> "/m/07rrh0c"
+	"/m/07rrh0c" [label=Thunk]
+	"/m/07qnq_y" -> "/t/dd00108"
+	"/t/dd00108" [label=Clunk]
+	"/m/0dl83" -> "/m/07pk7mg"
+	"/m/07pk7mg" [label=Wobble]
+	"/t/dd00089" -> "/t/dd00091"
+	"/t/dd00091" [label="Sound equipment"]
+	"/t/dd00091" -> "/m/0hg7b"
+	"/m/0hg7b" [label=Microphone]
+	"/m/0hg7b" -> "/t/dd00092"
+	"/t/dd00092" [label="Wind noise (microphone)"]
+	"/t/dd00091" -> "/m/0b_fwt"
+	"/m/0b_fwt" [label="Electronic tuner"]
+	"/t/dd00091" -> "/m/01vfsf"
+	"/m/01vfsf" [label="Guitar amplifier"]
+	"/t/dd00091" -> "/m/02rr_"
+	"/m/02rr_" [label="Effects unit"]
+	"/m/02rr_" -> "/m/07m2kt"
+	"/m/07m2kt" [label="Chorus effect"]
+	"/t/dd00041" -> "/t/dd00133"
+	"/t/dd00133" [label="Specific impact sounds"]
+	"/t/dd00133" -> "/m/018w8"
+	"/m/018w8" [label="Basketball bounce"]
+}
