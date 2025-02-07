@@ -2,7 +2,7 @@ from pydub import AudioSegment
 import os
 
 # Geef de map aan waar de WAV-bestanden staan
-folder_path = 'wavs\Barcelona_2022\segments\L_larger_90'
+folder_path = os.path.join('wavs', 'Barcelona_2022', 'segments', 'L_larger_90')
 
 # Loop door alle bestanden in de map
 for filename in os.listdir(folder_path):
