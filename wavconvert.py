@@ -1,8 +1,8 @@
-from pydub import AudioSegment
+import soundfile as sf
 import os
 
 # Geef de map aan waar de WAV-bestanden staan
-folder_path = os.path.join('wavs', 'Barcelona_2022', 'segments', 'L_larger_90')
+folder_path = os.path.join('wavs', 'Barcelona_2022', 'full_audio')
 
 # Loop door alle bestanden in de map
 for filename in os.listdir(folder_path):
@@ -10,16 +10,14 @@ for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         
         try:
-            # Laad het .wav bestand in Pydub
-            audio = AudioSegment.from_wav(file_path)
+            # Lees de audio met soundfile
+            data, sample_rate = sf.read(file_path)
 
-            # Zet de audio om naar 16-bit PCM (standaardkwaliteit)
-            audio = audio.set_sample_width(2)  # 16-bit PCM is 2 bytes (16 bits)
-            audio = audio.set_frame_rate(44100)  # Set de frame rate (sample rate)
-            
-            # Exporteer de geconverteerde file
+            # Converteer naar 16-bit PCM (standaard Signed Integer PCM)
             output_path = os.path.join(folder_path, f"converted_{filename}")
-            audio.export(output_path, format="wav")
-            print(f"Succesvol geconverteerd: {filename}")
+            sf.write(output_path, data, sample_rate, subtype='PCM_16')
+
+            print(f"Succesvol geconverteerd: {filename} naar 16-bit PCM")
+        
         except Exception as e:
-            print(f"Fout bij het converteren van {filename}: {e}")
+            print(f"Fout bij het verwerken van {filename}: {e}")

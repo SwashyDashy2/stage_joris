@@ -455,6 +455,17 @@ test = ["Pillow", "contourpy[test-no-images]", "matplotlib"]
 test-no-images = ["pytest", "pytest-cov", "pytest-rerunfailures", "pytest-xdist", "wurlitzer"]
 
 [[package]]
+name = "counter"
+version = "1.0.0"
+description = "Counter package defines the \"counter.Counter\" class similar to bags or multisets in other languages."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "Counter-1.0.0.tar.gz", hash = "sha256:9e008590e360936a66c98e1a01e7a9a0ecf6af19cc588107121f5fb4613bb60c"},
+]
+
+[[package]]
 name = "cycler"
 version = "0.12.1"
 description = "Composable style cycles"
@@ -3093,6 +3104,18 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "wave"
+version = "0.0.2"
+description = "Whole Architecture Verification"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "Wave-0.0.2.tar.gz", hash = "sha256:5a895bb85e04e38c82dba90d66a5ae8f488b50c58f3fc4df868a5bcdcabb8632"},
+    {file = "Wave-0.0.2.zip", hash = "sha256:5187f49497287d218cc83d4cd1e5299dc31485ab3ed32abbaa9e95d8f73c4095"},
+]
+
+[[package]]
 name = "wcwidth"
 version = "0.2.13"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -3337,4 +3360,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "37f09e5cb26da7b3cfd8e8ef5341361fc3e8edf7964b13626ec03beb6b462332"
+content-hash = "8dff2abb94e7fab92da30985afa9a24ba1daaf3634615ed2ae07afe8b55cfa92"
