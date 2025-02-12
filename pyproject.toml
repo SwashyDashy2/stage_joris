@@ -25,7 +25,8 @@ dependencies = [
     "ffmpeg (>=1.4,<2.0)",
     "pydub (>=0.25.1,<0.26.0)",
     "wave (>=0.0.2,<0.0.3)",
-    "counter (>=1.0.0,<2.0.0)"
+    "counter (>=1.0.0,<2.0.0)",
+    "librosa (>=0.10.2.post1,<0.11.0)"
 ]
 
 [tool.poetry]

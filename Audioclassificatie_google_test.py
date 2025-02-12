@@ -11,13 +11,13 @@ from collections import Counter, defaultdict
 
 # --- Configuration Parameters ---
 N_CLASSES = 10
-MIN_SCORE = 0.1
-MIN_CLASSIFICATIONS = 10
-MIN_PROBABILITY_GRAPH = 0.15
-ROOT_NAME = "Vehicle"
-FILTER_APPLIED = False
-TOP_THREE = False  # Whether to display only top-1 or top-3 in the scatter plot/histogram
-SCAT_MIN_CLASS = 4
+MIN_SCORE = 0.01
+MIN_CLASSIFICATIONS = 0
+MIN_PROBABILITY_GRAPH = 0.01
+ROOT_NAME = "Animal"
+FILTER_APPLIED = True
+TOP_THREE = True  # Whether to display only top-1 or top-3 in the scatter plot/histogram
+SCAT_MIN_CLASS = 1
 AUDIO_FILE_PATH = r'wavs\hond.wav'
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
@@ -145,3 +145,20 @@ ax2.set_title('Sound Sources Over Time')
 ax2.legend()
 plt.tight_layout()
 plt.show()
+
+import soundfile as sf
+
+# Create directory for processed chunks
+output_dir = "processed_chunks"
+os.makedirs(output_dir, exist_ok=True)
+
+# Calculate samples per chunk
+samples_per_chunk = int(sample_rate * (INTERVAL_MS / 1000))
+
+# Split audio into chunks and save
+for i, start in enumerate(range(0, len(audio_data), samples_per_chunk)):
+    chunk = audio_data[start:start + samples_per_chunk]
+    output_path = os.path.join(output_dir, f"chunk_{i}.wav")
+    sf.write(output_path, chunk.astype(np.float32) / np.iinfo(np.int16).max, sample_rate)
+
+print(f"\nProcessed audio chunks saved in: {output_dir}")
