@@ -45,7 +45,7 @@ def calculate_leq_over_time(wav_file, chunk_duration=0.1):
 
     return leq_values, time_stamps, audio_data, sample_rate
 
-def find_significant_peaks(leq_values, time_stamps, prominence=3):
+def find_significant_peaks(leq_values, time_stamps, prominence=5):
     """
     Detect peaks in the LEQ values based on a given prominence.
     Additionally, any peak with an LEQ value less than 50% of the maximum LEQ value is excluded.
@@ -57,7 +57,7 @@ def find_significant_peaks(leq_values, time_stamps, prominence=3):
     return filtered_peaks
 
 # --- Main Execution ---
-wav_file = r'wavs\example_1.wav'
+wav_file = r'C:\Code_mp\stage_joris\wavs\Geiten_conv\Recording-20240403-231000.geitengeluid.wav'
 leq_values, time_stamps, audio_data, sample_rate = calculate_leq_over_time(wav_file, chunk_duration=0.1)
 
 # Convert audio_data to float32 normalized to [-1, 1] for sounddevice playback
