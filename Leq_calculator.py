@@ -1,3 +1,14 @@
+"""
+Dit programma analyseert een audiobestand en bepaalt het geluidsniveau met een interval van 0,1 seconden.
+
+Functionaliteiten:
+- Het geluidsniveau wordt uitgedrukt in decibels (dB) ten opzichte van een referentiewaarde van 20 µPa.
+- Detecteert pieken in het signaal, bijvoorbeeld om het aantal keer dat een hond blaft te tellen.
+- Visualiseert het geluidsniveau in een grafiek over tijd.
+- Speelt het audiofragment synchroon af met de grafiek.
+- Een rode verticale lijn in de grafiek geeft aan hoever het afspelen van het fragment gevorderd is.
+"""
+
 import numpy as np
 import wave
 import struct
@@ -7,34 +18,44 @@ import matplotlib.animation as animation
 import sounddevice as sd
 import threading
 import time
-from scipy.signal import find_peaks  # Make sure to install SciPy (pip install scipy)
+from scipy.signal import find_peaks
+
+wav_file = r'wavs\hond.wav'  #Wav bestand wat geanalyseerd wordt.
 
 def calculate_leq_chunk(audio_data, sample_rate, chunk_size):
     squared_amplitude = np.square(audio_data)
-    leq = 10 * np.log10(np.mean(squared_amplitude))
+    p_ref = 2e-5  # Referentiedruk voor geluid in lucht (20 µPa)
+    leq = 10 * np.log10(np.mean(squared_amplitude) / (p_ref ** 2) + 1e-10)
     return leq
 
-def calculate_leq_over_time(wav_file, chunk_duration=0.1):
+def calculate_leq_over_time(wav_file, combine_channels=True, chunk_duration=0.1):
     with wave.open(wav_file, 'rb') as wf:
         num_channels = wf.getnchannels()
         sample_width = wf.getsampwidth()
         sample_rate = wf.getframerate()
         num_frames = wf.getnframes()
 
-        # Read all frames and unpack the data into an array
+        # Read all frames and unpack into an array
         audio_frames = wf.readframes(num_frames)
-        format_string = "<" + str(num_frames * num_channels) + "h"
-        audio_data = np.array(struct.unpack(format_string, audio_frames))
+        audio_data = np.frombuffer(audio_frames, dtype=np.int16)
 
-        # If the file is stereo (or more channels), use only the first channel
-        if num_channels > 1:
-            audio_data = audio_data[::num_channels]
+        # Reshape the data into (num_samples, num_channels)
+        audio_data = audio_data.reshape(-1, num_channels)
 
-        # Calculate chunk size (number of samples per chunk)
+        # Combine all channels (sum or average)
+        if combine_channels:
+            audio_data = np.sum(audio_data, axis=1)  # Summing all channels
+            # Alternatively, you can average the channels instead:
+            # audio_data = np.mean(audio_data, axis=1)
+
+        # Normalize to float [-1,1]
+        audio_data = audio_data.astype(np.float32) / np.iinfo(np.int16).max
+
+        # Chunk processing
         chunk_size = int(sample_rate * chunk_duration)
-
         leq_values = []
         time_stamps = []
+
         for start in range(0, len(audio_data), chunk_size):
             end = start + chunk_size
             chunk_data = audio_data[start:end]
@@ -45,75 +66,54 @@ def calculate_leq_over_time(wav_file, chunk_duration=0.1):
 
     return leq_values, time_stamps, audio_data, sample_rate
 
-def find_significant_peaks(leq_values, time_stamps, prominence=5):
-    """
-    Detect peaks in the LEQ values based on a given prominence.
-    Additionally, any peak with an LEQ value less than 50% of the maximum LEQ value is excluded.
-    """
-    peaks_indices, properties = find_peaks(leq_values, prominence=prominence)
+def find_significant_peaks(leq_values, time_stamps, prominence=3):
+    peaks_indices, _ = find_peaks(leq_values, prominence=prominence)
     max_leq = max(leq_values)
-    # Filter peaks: only include those with an LEQ value at least 50% of the maximum
     filtered_peaks = [(time_stamps[i], leq_values[i]) for i in peaks_indices if leq_values[i] >= 0.5 * max_leq]
     return filtered_peaks
 
-# --- Main Execution ---
-wav_file = r'C:\Code_mp\stage_joris\wavs\Geiten_conv\Recording-20240403-231000.geitengeluid.wav'
-leq_values, time_stamps, audio_data, sample_rate = calculate_leq_over_time(wav_file, chunk_duration=0.1)
 
-# Convert audio_data to float32 normalized to [-1, 1] for sounddevice playback
-audio_data = audio_data.astype(np.float32) / np.iinfo(np.int16).max
+leq_values, time_stamps, audio_data, sample_rate = calculate_leq_over_time(wav_file, combine_channels=True, chunk_duration=0.1)
 
-# --- Plot the LEQ graph ---
+# Plot the LEQ graph
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.plot(time_stamps, leq_values, label='LEQ over Time', color='blue')
 
-# Detect significant peaks with our updated criteria
-peaks = find_significant_peaks(leq_values, time_stamps, prominence=3)
+# Detect peaks
+peaks = find_significant_peaks(leq_values, time_stamps, prominence=5)
 if peaks:
     ax.scatter(*zip(*peaks), color='red', label='Significant Peaks', zorder=3)
 
 ax.set_xlabel('Time (seconds)')
 ax.set_ylabel('LEQ (dB)')
-ax.set_title('LEQ Values with Playback Progress')
+ax.set_title(f'LEQ Values (Combined Channels)')
 ax.grid(True)
 ax.legend()
 
-# --- Add a vertical red line that will move during playback ---
+# --- Playback & Animation ---
 ymin, ymax = ax.get_ylim()
 vertical_line = ax.axvline(x=0, color='red', linewidth=1)
 
-# --- Determine the total duration of the audio ---
 total_duration = len(audio_data) / sample_rate
-
-# --- Animation update function with delay ---
 start_time = None
-delay_time = 0.5  # 0.5 second delay before the line starts moving
+delay_time = 0.5  
 
 def update(frame):
     global start_time
     if start_time is None:
         start_time = time.time()
-
-    # Calculate elapsed time considering the delay
     elapsed = time.time() - start_time - delay_time
-    if elapsed < 0:
-        elapsed = 0
-    if elapsed > total_duration:
-        elapsed = total_duration
-    vertical_line.set_xdata([elapsed])  # Wrap elapsed in a list
+    elapsed = max(0, min(elapsed, total_duration))
+    vertical_line.set_xdata([elapsed])
     return vertical_line,
 
-# --- Audio Playback Function ---
 def play_audio():
     sd.play(audio_data, sample_rate)
     sd.wait()
 
-# Start audio playback in a separate thread so it plays concurrently with the animation.
 audio_thread = threading.Thread(target=play_audio, daemon=True)
 audio_thread.start()
 
-# --- Set up and start the animation ---
 ani = animation.FuncAnimation(fig, update, interval=50, blit=True, cache_frame_data=False)
-
 plt.tight_layout()
 plt.show()

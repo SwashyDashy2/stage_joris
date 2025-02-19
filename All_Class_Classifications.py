@@ -1,3 +1,22 @@
+"""
+Dit programma is ontwikkeld om geitengeluiden te detecteren in een map met audiobestanden die zijn opgenomen nabij een geitenboerderij. De gedetecteerde geluiden worden opgeslagen in een outputbestand voor verdere analyse.
+
+Functionaliteiten:
+- Analyseert meerdere audiobestanden in een opgegeven map en detecteert geitengeluiden.
+- Slaat gedetecteerde geluidsevents op in een Excel-bestand, inclusief:
+  - De naam van het audiobestand waarin het geitengeluid is gedetecteerd.
+  - Het tijdstip waarop het geitengeluid is waargenomen.
+  - De rang van het geluid binnen de classificatie (eerste, tweede of derde meest waarschijnlijke classificatie).
+- Geluiden die buiten de top 3 classificaties vallen, worden niet opgeslagen.
+
+Belangrijke parameters:
+- `N_CLASSES`: Moet groter zijn dan 3 om voldoende classificaties te waarborgen.
+- `ROOT_NAME`: Specificeert het classificatiefilter (standaard ingesteld op "Goat").
+- `OUTPUT_EXCEL`: Bepaalt de locatie waar het gegenereerde Excel-bestand wordt opgeslagen.
+
+Dit programma vereist als input een map met verschillende audiobestanden. Hoewel de bredere toepassing van deze detectie niet volledig gedefinieerd is, heeft het bewezen effectief te zijn bij het identificeren van geitengeluiden binnen grote datasets.
+"""
+
 import os
 import json
 import numpy as np
@@ -8,14 +27,14 @@ from mediapipe.tasks.python.components import containers
 from mediapipe.tasks.python import audio
 
 # --- Configuration Parameters ---
-N_CLASSES = 10
-MIN_SCORE = 0.5
+N_CLASSES = 3
+MIN_SCORE = 0.01
 ROOT_NAME = "Goat"  # Root category to search in JSON
 INTERVAL_MS = 975   # Analysis interval in milliseconds
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
 AUDIO_DIR = r'C:\Code_mp\stage_joris\wavs\Geiten_conv'
-OUTPUT_EXCEL = "goat_events.xlsx"
+OUTPUT_EXCEL = "goat_events2.xlsx"
 
 # --- Load JSON and get valid names ---
 def get_valid_names(data, root_name):

@@ -1,3 +1,8 @@
+#This code is used to classify a single audio file.
+#The classification is based on the YAMNet model and a JSON file that maps the categories to a specific root category.
+#The script processes the audio file, extracts the selected number of classifications every 0.975 seconds, and records the events where the category matches the valid names.
+#The code has the option to filter the results based on a minimum score threshold and the number of classifications per event.
+
 import numpy as np
 import os
 import json
@@ -10,18 +15,27 @@ from mediapipe.tasks.python import audio
 from collections import Counter, defaultdict
 
 # --- Configuration Parameters ---
-N_CLASSES = 10
-MIN_SCORE = 0.5
+AUDIO_FILE_PATH = r'wavs\5sounds.wav'
+
+# --- Histogram Parameters ---
+MIN_SCORE = 0.1
 MIN_CLASSIFICATIONS = 0
-MIN_PROBABILITY_GRAPH = 0.5
-ROOT_NAME = "Goat" #Livestock, farm animals, working animals
-FILTER_APPLIED = False
-TOP_THREE = True  # Whether to display only top-1 or top-3 in the scatter plot/histogram
-SCAT_MIN_CLASS = 1
-AUDIO_FILE_PATH = r'wavs\Geiten_conv\Recording-20240406-061000.wav'
+
+# --- Scatterplot Parameters ---
+MIN_PROBABILITY_GRAPH = 0.1
+TOP_THREE = True  # Whether to display only top-1 or top-3 in the scatter plot
+SCAT_MIN_CLASS = 3
+
+# --- Audio Classifier Parameters ---
+N_CLASSES = 11
+FILTER_APPLIED = True
+ROOT_NAME = "Animal"  # Livestock, farm animals, working animals
+
+# --- Initialize Paths ---
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
-INTERVAL_MS = 975  # Analysis interval in milliseconds
+INTERVAL_MS = 975 
+
 
 # Validate Audio File
 if not os.path.isfile(AUDIO_FILE_PATH):
@@ -105,7 +119,18 @@ def classify_audio(audio_file_path, model_path, n_classes, interval_ms,
 results = classify_audio(AUDIO_FILE_PATH, MODEL_PATH, N_CLASSES, INTERVAL_MS,
                            MIN_PROBABILITY_GRAPH, MIN_SCORE, TOP_THREE)
 
-# Load and Validate JSON Data
+# ---------------------------------------------------------------------------
+# Summation of all classification probabilities and top 5 display with depth info
+# ---------------------------------------------------------------------------
+total_probabilities = defaultdict(float)
+for timestamp_results in results['all_top10']:
+    for cls, prob in timestamp_results:
+        total_probabilities[cls] += prob
+
+# Get the top 5 classifications with the highest total summed probability
+top5 = sorted(total_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
+
+# --- Load and Validate JSON Data and build Depth Mapping ---
 def get_valid_names(data, root_name):
     def find_entry(name):
         return next((entry for entry in data if entry['name'] == name), None)
@@ -129,7 +154,59 @@ if not any(entry['name'] == ROOT_NAME for entry in data):
 
 valid_names = get_valid_names(data, ROOT_NAME)
 
-# Filter Data Based on Valid Names
+# Build a mapping from class name to depth (if available)
+depth_map = {entry['name']: entry.get('depth', "N/A") for entry in data}
+
+print("\nTop 5 classifications by total summed probability (with Depth info):")
+for cls, total in top5:
+    depth = depth_map.get(cls, "N/A")
+    print(f"{cls}: {total:.2f} (Depth = {depth})")
+
+# Optional: Plot the top 5 summed probabilities (annotated with depth)
+fig, ax = plt.subplots(figsize=(8, 5))
+categories, sums = zip(*top5)
+ax.bar(categories, sums)
+ax.set_title("Top 5 Classifications by Total Summed Probability")
+ax.set_ylabel("Total Probability")
+plt.xticks(rotation=45)
+# Annotate each bar with depth info
+for i, category in enumerate(categories):
+    depth = depth_map.get(category, "N/A")
+    ax.text(i, sums[i] + 0.01, f"Depth = {depth}", ha='center', va='bottom')
+plt.show()
+
+# ---------------------------------------------------------------------------
+# Conclusion: Determine the class from the deepest (highest depth) group
+# among the top 5 with the highest total probability.
+# ---------------------------------------------------------------------------
+top5_with_depth = []
+for cls, total in top5:
+    depth = depth_map.get(cls, None)
+    # Ensure depth is numeric
+    try:
+        depth_numeric = float(depth)
+    except (TypeError, ValueError):
+        depth_numeric = None
+    if depth_numeric is not None:
+        top5_with_depth.append((cls, total, depth_numeric))
+
+if top5_with_depth:
+    # Get the maximum depth value among the top 5
+    max_depth = max(x[2] for x in top5_with_depth)
+    # Filter for classes with the maximum depth
+    candidates = [x for x in top5_with_depth if x[2] == max_depth]
+    # Select the candidate with the highest probability among these
+    best_candidate = max(candidates, key=lambda x: x[1])
+    best_cls, best_total, best_depth = best_candidate
+    print(f"\nConclusion: The sound is likely a {best_cls}. "
+          f"Since it is of the highest depth ({int(best_depth)}) and among those, "
+          f"it has the highest total probability summation ({best_total:.2f}).")
+else:
+    print("\nNo depth information available in top 5 classifications.")
+
+# ---------------------------------------------------------------------------
+# Filter Data Based on Valid Names (for scatter plot)
+# ---------------------------------------------------------------------------
 filtered_sources, filtered_time_stamps = [], []
 filtered_second_sources, filtered_third_sources = [], []
 
@@ -146,39 +223,34 @@ scatter_time_stamps = filtered_time_stamps if FILTER_APPLIED else results['time_
 scatter_second_sources = filtered_second_sources if FILTER_APPLIED else results['second_sources']
 scatter_third_sources = filtered_third_sources if FILTER_APPLIED else results['third_sources']
 
-# Filter Scatter Data based on SCAT_MIN_CLASS threshold
-list_of_sources = scatter_sources + scatter_second_sources + scatter_third_sources
-scatter_class_counts = Counter(list_of_sources)
-allowed_classes = [key for key, value in scatter_class_counts.items() if value >= SCAT_MIN_CLASS]
+# ---------------------------------------------------------------------------
+# Generate Plots for Overall Classifications and Scatter Data
+# ---------------------------------------------------------------------------
+# Apply the same filtering for the histogram as well
+if FILTER_APPLIED:
+    histogram_class_counts = {k: v for k, v in results['class_counts'].items() if k in valid_names}
+else:
+    histogram_class_counts = results['class_counts']
 
-scat_filtered_sources, scat_filtered_time_stamps = [], []
-scat_filtered_second_sources, scat_filtered_third_sources = [], []
-for ms, ss, ts, timestamp in zip(scatter_sources, scatter_second_sources, scatter_third_sources, scatter_time_stamps):
-    if ms in allowed_classes and ss in allowed_classes and ts in allowed_classes:
-        scat_filtered_sources.append(ms)
-        scat_filtered_second_sources.append(ss)
-        scat_filtered_third_sources.append(ts)
-        scat_filtered_time_stamps.append(timestamp)
-
-# Generate Plots
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
-ax1.bar(results['class_counts'].keys(), results['class_counts'].values())
+
+# Histogram plot with filtering applied
+ax1.bar(histogram_class_counts.keys(), histogram_class_counts.values())
 ax1.set_xlabel('Class')
 ax1.set_ylabel('Identifications')
 ax1.set_title('Class Identifications')
 ax1.tick_params(axis='x', rotation=45)
 
-ax2.scatter(scat_filtered_time_stamps, scat_filtered_sources, marker='o', label='Most Likely')
+# Scatter plot for sound sources over time
+ax2.scatter(scatter_time_stamps, scatter_sources, marker='o', label='Most Likely')
 if TOP_THREE:
-    ax2.scatter(scat_filtered_time_stamps, scat_filtered_second_sources, marker='x', label='Second Most Likely')
-    ax2.scatter(scat_filtered_time_stamps, scat_filtered_third_sources, marker='^', label='Third Most Likely')
+    ax2.scatter(scatter_time_stamps, scatter_second_sources, marker='x', label='Second Most Likely')
+    ax2.scatter(scatter_time_stamps, scatter_third_sources, marker='^', label='Third Most Likely')
 
 ax2.set_xlabel('Time (s)')
 ax2.set_ylabel('Source')
 ax2.set_title('Sound Sources Over Time')
 ax2.legend()
+
 plt.tight_layout()
 plt.show()
-
-import soundfile as sf
-
