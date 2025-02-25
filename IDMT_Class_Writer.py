@@ -1,6 +1,6 @@
 import pandas as pd
 
-# 1. Define the categorization function
+# Define the categorization function
 def categorize_vehicle(filename):
     # Car
     if "_CR_" in filename or "_CL_" in filename:
@@ -15,17 +15,15 @@ def categorize_vehicle(filename):
     else:
         return None
 
-# 2. Load the Excel file
-file_path = r"IDMT_Traffic\audio\IDMT_data_Classified_ava_prob.xlsx"
+# Load the Excel file
+file_path = r"IDMT.xlsx"
 df = pd.read_excel(file_path)
 
-# 3. Apply the function to the "File" column
-df["Category"] = df["File"].apply(categorize_vehicle)
+# Apply categorization to filenames in column A
+df["Class"] = df.iloc[:, 0].apply(categorize_vehicle)
 
-# 4. (Optional) Rename "Category" to "E" if you specifically want the column named "E"
-# df.rename(columns={"Category": "E"}, inplace=True)
-
-# 5. Save the results to a new Excel file
-output_path = "categorized_output_ava_prob.xlsx"
+# Save the updated file
+output_path = r"IDMT_Categorized.xlsx"
 df.to_excel(output_path, index=False)
+
 print(f"Classification complete! Results saved to {output_path}")

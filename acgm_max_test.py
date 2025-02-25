@@ -11,7 +11,6 @@ from collections import Counter, defaultdict
 
 # --- Configuration Parameters ---
 AUDIO_FILE_PATH = r'wavs\Length Tests\Harley Davidson drive by sound.wav'
-
 # --- Histogram Parameters ---
 MIN_SCORE = 0.1
 MIN_CLASSIFICATIONS = 0
@@ -69,7 +68,7 @@ def classify_audio(audio_file_path, model_path, n_classes, interval_ms,
 
     # Process Classification Results
     time_stamps, sources, second_sources, third_sources = [], [], [], []
-    all_top10 = []   # To store the top 10 classes (each as (class, probability)) at every timestep
+    all_top10 = []   # To store the top 10 predictions (each as (class, probability)) at every timestep
     class_counts = Counter()
     
     for timestamp in range(0, int(duration * 1000), interval_ms):
@@ -114,21 +113,19 @@ results = classify_audio(AUDIO_FILE_PATH, MODEL_PATH, N_CLASSES, INTERVAL_MS,
                            MIN_PROBABILITY_GRAPH, MIN_SCORE, TOP_THREE)
 
 # ---------------------------------------------------------------------------
-# Averaging of classification probabilities over the length of the file
+# Calculation of maximum probability per class and top 5 display with depth info
 # ---------------------------------------------------------------------------
-total_probabilities = defaultdict(float)
-n_intervals = len(results['all_top10'])
+max_probabilities = defaultdict(float)
 for timestamp_results in results['all_top10']:
     for cls, prob in timestamp_results:
-        total_probabilities[cls] += prob
+        # Update the maximum probability encountered for this class
+        if prob > max_probabilities[cls]:
+            max_probabilities[cls] = prob
 
-# Compute average probability per class
-avg_probabilities = {cls: total / n_intervals for cls, total in total_probabilities.items()}
+# Get the top 5 classifications with the highest maximum probability
+top5 = sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
 
-# Get the top 5 classifications with the highest average probability
-top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
-
-# --- Load and Validate JSON Data and build Depth Mapping ---
+# --- Load and Validate JSON Data and Build Depth Mapping ---
 def get_valid_names(data, root_name):
     def find_entry(name):
         return next((entry for entry in data if entry['name'] == name), None)
@@ -155,50 +152,48 @@ valid_names = get_valid_names(data, ROOT_NAME)
 # Build a mapping from class name to depth (if available)
 depth_map = {entry['name']: entry.get('depth', "N/A") for entry in data}
 
-print("\nTop 5 classifications by average probability (with Depth info):")
-for cls, avg in top5:
+print("\nTop 5 classifications by maximum probability (with Depth info):")
+for cls, max_prob in top5:
     depth = depth_map.get(cls, "N/A")
-    print(f"{cls}: {avg:.2f} (Depth = {depth})")
+    print(f"{cls}: {max_prob:.2f} (Depth = {depth})")
 
-# Optional: Plot the top 5 averaged probabilities (annotated with depth)
+# Optional: Plot the top 5 maximum probabilities (annotated with depth)
 fig, ax = plt.subplots(figsize=(8, 5))
-categories, avgs = zip(*top5)
-ax.bar(categories, avgs)
-ax.set_title("Top 5 Classifications by Average Probability")
-ax.set_ylabel("Average Probability")
+categories, max_probs = zip(*top5)
+ax.bar(categories, max_probs)
+ax.set_title("Top 5 Classifications by Maximum Probability")
+ax.set_ylabel("Maximum Probability")
 plt.xticks(rotation=45)
-# Annotate each bar with depth info
 for i, category in enumerate(categories):
     depth = depth_map.get(category, "N/A")
-    ax.text(i, avgs[i] + 0.01, f"Depth = {depth}", ha='center', va='bottom')
+    ax.text(i, max_probs[i] + 0.01, f"Depth = {depth}", ha='center', va='bottom')
 plt.show()
 
 # ---------------------------------------------------------------------------
 # Conclusion: Determine the class from the deepest (highest depth) group
-# among the top 5 with the highest average probability.
+# among the top 5 with the highest maximum probability.
 # ---------------------------------------------------------------------------
 top5_with_depth = []
-for cls, avg in top5:
+for cls, max_prob in top5:
     depth = depth_map.get(cls, None)
-    # Ensure depth is numeric
     try:
         depth_numeric = float(depth)
     except (TypeError, ValueError):
         depth_numeric = None
     if depth_numeric is not None:
-        top5_with_depth.append((cls, avg, depth_numeric))
+        top5_with_depth.append((cls, max_prob, depth_numeric))
 
 if top5_with_depth:
-    # Get the maximum depth value among the top 5
+    # Get the maximum depth among the top 5 (i.e., the deepest level)
     max_depth = max(x[2] for x in top5_with_depth)
-    # Filter for classes with the maximum depth
+    # Filter for classes with this maximum depth
     candidates = [x for x in top5_with_depth if x[2] == max_depth]
-    # Select the candidate with the highest average probability among these
+    # Select the candidate with the highest maximum probability among these
     best_candidate = max(candidates, key=lambda x: x[1])
-    best_cls, best_avg, best_depth = best_candidate
+    best_cls, best_max_prob, best_depth = best_candidate
     print(f"\nConclusion: The sound is likely a {best_cls}. "
           f"Since it is of the deepest level ({int(best_depth)}) and among those, "
-          f"it has the highest average probability ({best_avg:.2f}).")
+          f"it has the highest maximum probability ({best_max_prob:.2f}).")
 else:
     print("\nNo depth information available in top 5 classifications.")
 
@@ -215,7 +210,6 @@ for ms, ss, ts, timestamp in zip(results['sources'], results['second_sources'], 
         filtered_third_sources.append(ts)
         filtered_time_stamps.append(timestamp)
 
-# Apply Filters (if FILTER_APPLIED is False, use original lists)
 scatter_sources = filtered_sources if FILTER_APPLIED else results['sources']
 scatter_time_stamps = filtered_time_stamps if FILTER_APPLIED else results['time_stamps']
 scatter_second_sources = filtered_second_sources if FILTER_APPLIED else results['second_sources']
@@ -231,14 +225,12 @@ else:
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
-# Histogram plot with filtering applied
 ax1.bar(histogram_class_counts.keys(), histogram_class_counts.values())
 ax1.set_xlabel('Class')
 ax1.set_ylabel('Identifications')
 ax1.set_title('Class Identifications')
 ax1.tick_params(axis='x', rotation=45)
 
-# Scatter plot for sound sources over time
 ax2.scatter(scatter_time_stamps, scatter_sources, marker='o', label='Most Likely')
 if TOP_THREE:
     ax2.scatter(scatter_time_stamps, scatter_second_sources, marker='x', label='Second Most Likely')
