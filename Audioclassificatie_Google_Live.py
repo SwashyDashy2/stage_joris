@@ -65,7 +65,7 @@ def classify_audio(audio_data):
                 timestamp_predictions.append(category.category_name)
                 class_counts[category.category_name] += 1
 
-    # Filter classes based on min_classifications
+    # Filter classes based on minimum classifications
     filtered_class_counts = {k: v for k, v in class_counts.items() if v >= min_classifications}
 
     # Print the three classes with the highest total probability

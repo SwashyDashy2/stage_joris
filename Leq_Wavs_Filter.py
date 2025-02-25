@@ -4,7 +4,7 @@ import wave
 import struct
 import numpy as np
 
-# Global configuration variables
+# Global variables
 chunk_length = 4         # Lengte van de chunk in seconden
 min_db = 76.3              # Minimum dB-waarde waaraan een chunk (piekkarakter) moet voldoen
 

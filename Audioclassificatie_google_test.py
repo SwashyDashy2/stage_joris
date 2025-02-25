@@ -1,4 +1,4 @@
-#This code is used to classify a single audio file.
+#This code is used to classify a single audio file and record events where the category matches the valid names.
 #The classification is based on the YAMNet model and a JSON file that maps the categories to a specific root category.
 #The script processes the audio file, extracts the selected number of classifications every 0.975 seconds, and records the events where the category matches the valid names.
 #The code has the option to filter the results based on a minimum score threshold and the number of classifications per event.
@@ -15,7 +15,7 @@ from mediapipe.tasks.python import audio
 from collections import Counter, defaultdict
 
 # --- Configuration Parameters ---
-AUDIO_FILE_PATH = r'wavs\5sounds.wav'
+AUDIO_FILE_PATH = r'wavs\Highway\Peak_dB_Values\highway_chunk_3299.30s.wav'
 
 # --- Histogram Parameters ---
 MIN_SCORE = 0.1

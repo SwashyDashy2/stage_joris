@@ -1,7 +1,7 @@
 import soundfile as sf
 import os
 
-# Geef de map aan waar de FLAC-bestanden staan
+# Geef de map aan waar de bestanden staan
 folder_path = os.path.join('wavs', 'Calibration')
 
 # Geef de map aan waar de WAV-bestanden moeten worden opgeslagen
@@ -12,7 +12,7 @@ os.makedirs(output_folder, exist_ok=True)
 
 # Loop door alle bestanden in de map
 for filename in os.listdir(folder_path):
-    if filename.endswith(".wav"):  # Alleen .flac-bestanden
+    if filename.endswith(".wav"):  # Pas aan naar de extensie van de bestanden die je wilt converteren
         file_path = os.path.join(folder_path, filename)
         
         try:
