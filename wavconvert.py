@@ -2,17 +2,17 @@ import soundfile as sf
 import os
 
 # Geef de map aan waar de bestanden staan
-folder_path = os.path.join('wavs', 'Calibration')
+folder_path = os.path.join('wavs', 'sirene')
 
 # Geef de map aan waar de WAV-bestanden moeten worden opgeslagen
-output_folder = os.path.join('wavs', 'Calibration_conv')
+output_folder = os.path.join('wavs', 'sirene_conv')
 
 # Maak de outputmap aan als deze nog niet bestaat
 os.makedirs(output_folder, exist_ok=True)
 
 # Loop door alle bestanden in de map
 for filename in os.listdir(folder_path):
-    if filename.endswith(".wav"):  # Pas aan naar de extensie van de bestanden die je wilt converteren
+    if filename.endswith(".mp3"):  # Pas aan naar de extensie van de bestanden die je wilt converteren
         file_path = os.path.join(folder_path, filename)
         
         try:

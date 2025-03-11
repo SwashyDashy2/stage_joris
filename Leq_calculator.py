@@ -20,7 +20,7 @@ import threading
 import time
 from scipy.signal import find_peaks
 
-wav_file = r'wavs\hond.wav'  #Wav bestand wat geanalyseerd wordt.
+wav_file = r'wavs\sirene\police-siren-21498.mp3'  #Wav bestand wat geanalyseerd wordt.
 
 def calculate_leq_chunk(audio_data, sample_rate, chunk_size):
     squared_amplitude = np.square(audio_data)

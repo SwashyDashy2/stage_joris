@@ -5,7 +5,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precisio
 import numpy as np
 
 # 1. Load the Excel file
-file_path = r"IDMT_Categorized.xlsx"
+file_path = r"VTSD_f_max.xlsx"
 df = pd.read_excel(file_path, header=0)  # First row is column headers
 
 # 2. Print column names for debugging

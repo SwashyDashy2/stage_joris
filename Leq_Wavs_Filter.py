@@ -5,8 +5,8 @@ import struct
 import numpy as np
 
 # Global variables
-chunk_length = 4         # Lengte van de chunk in seconden
-min_db = 76.3              # Minimum dB-waarde waaraan een chunk (piekkarakter) moet voldoen
+chunk_length = 5         # Lengte van de chunk in seconden
+min_db = 60              # Minimum dB-waarde waaraan een chunk (piekkarakter) moet voldoen
 
 def calculate_leq_chunk(audio_data):
     squared_amplitude = np.square(audio_data)
@@ -144,6 +144,6 @@ def process_wav_files(directory, output_excel):
         print("Geen chunks aangemaakt.")
 
 if __name__ == "__main__":
-    input_directory = r"wavs\Highway"
-    output_file = "leq_results_highway.xlsx"
+    input_directory = r"wavs\sirene_conv"
+    output_file = "sirene.xlsx"
     process_wav_files(input_directory, output_file)

@@ -10,7 +10,7 @@ from mediapipe.tasks.python import audio
 from collections import Counter, defaultdict
 
 # --- Configuration Parameters ---
-AUDIO_FILE_PATH = r'wavs\Length Tests\Harley Davidson drive by sound.wav'
+AUDIO_FILE_PATH = r'Best_Sound_Dataset\toeter_5.wav'
 
 # --- Histogram Parameters ---
 MIN_SCORE = 0.1

@@ -1,33 +1,26 @@
 import os
-import re
+import shutil
 
-# Folder containing the .wav files
-folder = r"sounds\ambulance"  # Change this to your folder path
+# Define the path of the parent folder containing all the subfolders
+parent_folder = r'wavs\ESC10'
 
-# Get a list of files that match the pattern "sound_*.wav"
-files = [f for f in os.listdir(folder) if f.lower().endswith(".wav") and f.startswith("sound_")]
+# List all the subfolders in the parent folder
+subfolders = [f.path for f in os.scandir(parent_folder) if f.is_dir()]
 
-# Function to extract the numeric part from a filename like "sound_123.wav"
-def get_number(filename):
-    match = re.search(r'sound_(\d+)\.wav', filename, re.IGNORECASE)
-    return int(match.group(1)) if match else 0
-
-# Sort files based on their numeric value
-files.sort(key=get_number)
-
-# Rename files:
-# - First 200 files → ambulance_1.wav, ambulance_2.wav, ..., ambulance_200.wav
-# - Next 50 files → firetruck_1.wav, firetruck_2.wav, ..., firetruck_50.wav
-for i, filename in enumerate(files, start=1):
-    old_path = os.path.join(folder, filename)
-    if i <= 200:
-        new_name = f"ambulance_{i}.wav"
-    elif i <= 250:
-        new_name = f"firetruck_{i - 200}.wav"
-    else:
-        # For files beyond 250, we do nothing.
-        continue
-
-    new_path = os.path.join(folder, new_name)
-    os.rename(old_path, new_path)
-    print(f"Renamed {filename} to {new_name}")
+# Loop through each subfolder and move the files to the parent folder
+for subfolder in subfolders:
+    # List all files in the subfolder
+    files = [f for f in os.listdir(subfolder) if os.path.isfile(os.path.join(subfolder, f))]
+    
+    for file in files:
+        # Define the full paths for the current file and the destination (parent folder)
+        old_path = os.path.join(subfolder, file)
+        new_path = os.path.join(parent_folder, file)
+        
+        # Move the file to the parent folder (will overwrite if the file with the same name exists)
+        shutil.move(old_path, new_path)
+        print(f"Moved {file} to {parent_folder}")
+    
+    # After moving all files, remove the subfolder
+    os.rmdir(subfolder)
+    print(f"Removed folder {subfolder}")

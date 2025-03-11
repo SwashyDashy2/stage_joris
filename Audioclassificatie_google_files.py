@@ -2,7 +2,6 @@ import numpy as np
 import os
 import json
 from scipy.io import wavfile
-from IPython.display import Audio, display
 from mediapipe.tasks import python
 from mediapipe.tasks.python.components import containers
 from mediapipe.tasks.python import audio
@@ -10,9 +9,9 @@ from collections import Counter, defaultdict
 from tqdm import tqdm
 
 # --- Configuration Parameters ---
-AUDIO_FILE_PATH = r'IDMT_Traffic\audio'
+AUDIO_FILE_PATH = r'wavs\ESC10'
 ANALYZE_FILE = True  # Indien True, wordt voor elk audiobestand een Excel-samenvatting aangemaakt.
-excel_output_name = "IDMT_data_Classified_ava_prob.xlsx"
+excel_output_name = "ESC10_f_avg.xlsx"
 
 # --- Audio Classifier Parameters ---
 N_CLASSES = 10
@@ -22,38 +21,32 @@ APPLY_ROOT_CLASS_FILTER = False  # When True, only classes (and their children) 
 ROOT_NAME = "Motor vehicle (road)"  # Voorbeeld rootcategorie.
 
 # New variables for selective filtering:
-ALLOWED_CLASSES = ["Car", "Motorcycle", "Bus", "Truck"]
+ALLOWED_CLASSES = ["Baby cry, infant cry", "Baby laughter", "Chainsaw", "Chicken, rooster", "Helicopter", "Fire", "Dog", "Rain", "Waves, surf", "Tick", "Tick-tock", "Sneeze"]
 SELECTIVE_FILTER = True  # If True, only display classes (in the final top 5) that are part of ALLOWED_CLASSES
 
-# Ensure that both filters are not enabled simultaneously.
 if APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER:
     raise ValueError("APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER cannot both be True at the same time.")
 
-# --- New variable for maximum allowed depth in conclusion ---
-# Set MAX_DEPTH to None to remove the restriction, or set it to a number (e.g., 3) to limit the maximum depth.
-MAX_DEPTH = 3
+MAX_DEPTH = None  # Not used as a filter here
 
 # --- Initialize Paths ---
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
 INTERVAL_MS = 975  # Analyse-interval in milliseconden
 
-# --- Function Definitions ---
+# --- Helper Functions ---
 
 def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
     """
     Laadt de audio en het classifiermodel, voert classificatie uit en verwerkt de resultaten.
-    
     Retourneert een dictionary met:
       - sample_rate, audio_data, classification_results, duration,
       - all_top10: een lijst van lijsten met tuples (class, probability) per tijdssegment,
-      - class_counts: een teller van de classificaties, eventueel gefilterd op valid_names of ALLOWED_CLASSES.
+      - class_counts: een teller van de classificaties.
     """
-    # Laad en normaliseer audio
     sample_rate, audio_data = wavfile.read(audio_file_path)
     audio_data = (audio_data / np.max(np.abs(audio_data)) * np.iinfo(np.int16).max).astype(np.int16)
     
-    # Laad model en voer classificatie uit
     base_options = python.BaseOptions(model_asset_path=model_path)
     options = audio.AudioClassifierOptions(base_options=base_options, max_results=n_classes)
     with audio.AudioClassifier.create_from_options(options) as classifier:
@@ -62,18 +55,15 @@ def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
         )
         classification_results = classifier.classify(audio_clip)
     
-    # Bepaal de duur van de audio (in seconden)
     duration = len(audio_data) / sample_rate
 
-    all_top10 = []  # Lijst van lijsten: elk element bevat tuples (class, probability) per tijdssegment.
+    all_top10 = []
     class_counts = Counter()
     
-    # Verwerk de classificatieresultaten per vast tijdsinterval.
     for timestamp in range(0, int(duration * 1000), interval_ms):
         idx = timestamp // interval_ms
         if idx < len(classification_results):
             classifications = classification_results[idx].classifications[0].categories
-            # Bouw een lijst met (class, probability) voor de top predictions
             top10 = [(cat.category_name, cat.score) for cat in classifications[:n_classes]]
             all_top10.append(top10)
             
@@ -81,7 +71,6 @@ def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
             for rank, (cls, prob) in enumerate(top10, 1):
                 print(f"  {rank}. {cls}: {prob:.2f}")
             
-            # Tel alle classificaties, met filtering afhankelijk van de ingestelde opties.
             for category in classifications[:n_classes]:
                 cls_name = category.category_name
                 if APPLY_ROOT_CLASS_FILTER:
@@ -118,6 +107,32 @@ def get_valid_names(data, root_name):
     root_entry = find_entry(root_name)
     return gather_names(root_entry) if root_entry else []
 
+def build_json_mapping(json_data):
+    """Bouw een mapping: class name -> JSON entry."""
+    mapping = {}
+    for entry in json_data:
+        mapping[entry['name']] = entry
+    return mapping
+
+def is_descendant(child_name, parent_name, json_mapping):
+    """
+    Controleer recursief of child_name een descendant is van parent_name via de JSON-structuur.
+    Als parent_name in json_mapping staat, bekijk dan zijn child_ids en zoek naar child_name.
+    """
+    if parent_name not in json_mapping:
+        return False
+    parent_entry = json_mapping[parent_name]
+    if not parent_entry.get('child_ids'):
+        return False
+    for child_id in parent_entry['child_ids']:
+        child_entry = next((item for item in json_data if item.get('id') == child_id), None)
+        if child_entry:
+            if child_entry['name'] == child_name:
+                return True
+            if is_descendant(child_name, child_entry['name'], json_mapping):
+                return True
+    return False
+
 # --- Laad JSON en bouw Depth Mapping ---
 with open(JSON_PATH, "r") as file:
     json_data = json.load(file)
@@ -127,26 +142,23 @@ if not any(entry['name'] == ROOT_NAME for entry in json_data):
 
 valid_names = get_valid_names(json_data, ROOT_NAME)
 depth_map = {entry['name']: entry.get('depth', "N/A") for entry in json_data}
+json_mapping = build_json_mapping(json_data)
 
 # --- Hoofdverwerkingsblok ---
-
 if os.path.isdir(AUDIO_FILE_PATH):
     wav_files = [os.path.join(AUDIO_FILE_PATH, f) for f in os.listdir(AUDIO_FILE_PATH) if f.lower().endswith('.wav')]
     
-    summary_data = []  # Houdt de samenvattingsinformatie per bestand bij.
-    
+    summary_data = []
     total_files = len(wav_files)
     for idx, file_path in enumerate(wav_files, start=1):
         print(f"\n============================================")
         print(f"Processing file {idx}/{total_files}: {os.path.basename(file_path)}")
-    
-        # Optional: Visual progress bar
         progress = (idx / total_files) * 100
         print(f"Progress: [{int(progress)}%] {'█' * (idx * 20 // total_files)}")
     
         results = classify_audio(file_path, MODEL_PATH, N_CLASSES, INTERVAL_MS)
         
-        # Instead of summing probabilities, accumulate probabilities in a list per class.
+        # Accumuleer per klasse alle waarschijnlijkheden uit de tijdssegmenten.
         class_probabilities = defaultdict(list)
         for timestamp_results in results['all_top10']:
             for cls, prob in timestamp_results:
@@ -159,51 +171,45 @@ if os.path.isdir(AUDIO_FILE_PATH):
                 else:
                     class_probabilities[cls].append(prob)
         
-        # Compute the average probability per class.
+        # Bereken de gemiddelde waarschijnlijkheid per klasse.
         avg_probabilities = {}
         for cls, prob_list in class_probabilities.items():
             if prob_list:
                 avg_probabilities[cls] = sum(prob_list) / len(prob_list)
         
-        # Selecteer de top 5 klassen op basis van de gemiddelde waarschijnlijkheid.
-        top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
-        # If SELECTIVE_FILTER is true, further filter the top5 list to only include allowed classes.
+        # Filter op ALLOWED_CLASSES indien SELECTIVE_FILTER actief is.
         if SELECTIVE_FILTER:
-            top5 = [(cls, avg) for cls, avg in top5 if cls in ALLOWED_CLASSES]
-            
+            avg_probabilities = {cls: avg for cls, avg in avg_probabilities.items() if cls in ALLOWED_CLASSES}
+        
         print("\nTop 5 classificaties (gemiddelde waarschijnlijkheid met diepte-informatie):")
-        for cls, avg in top5:
+        for cls, avg in sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]:
             depth = depth_map.get(cls, "N/A")
             print(f"  {cls}: {avg:.2f} (Diepte = {depth})")
         
-        # Determine the final conclusion based on additional criteria (here still using depth as a tie-breaker).
-        top5_with_depth = []
+        # Bepaal de top 5 op basis van gemiddelde waarschijnlijkheid.
+        top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
+        # Bouw een lijst met kandidaten: (klasse, gemiddelde waarschijnlijkheid, depth)
+        candidates = []
         for cls, avg in top5:
-            depth = depth_map.get(cls, None)
+            depth_val = depth_map.get(cls, None)
             try:
-                depth_numeric = float(depth)
+                depth_numeric = float(depth_val)
             except (TypeError, ValueError):
-                depth_numeric = None
-            if depth_numeric is not None:
-                top5_with_depth.append((cls, avg, depth_numeric))
+                depth_numeric = 0
+            candidates.append((cls, avg, depth_numeric))
         
-        if top5_with_depth:
-            # Filter candidates based on MAX_DEPTH if it is set.
-            if MAX_DEPTH is not None:
-                filtered_candidates = [x for x in top5_with_depth if x[2] <= MAX_DEPTH]
-                if filtered_candidates:
-                    max_depth = max(x[2] for x in filtered_candidates)
-                    candidates = [x for x in filtered_candidates if x[2] == max_depth]
-                else:
-                    max_depth = max(x[2] for x in top5_with_depth)
-                    candidates = [x for x in top5_with_depth if x[2] == max_depth]
-            else:
-                max_depth = max(x[2] for x in top5_with_depth)
-                candidates = [x for x in top5_with_depth if x[2] == max_depth]
-            best_candidate = max(candidates, key=lambda x: x[1])
+        # Begin met de kandidaat met de hoogste gemiddelde waarschijnlijkheid.
+        if candidates:
+            best_candidate = candidates[0]
             best_cls, best_avg, best_depth = best_candidate
+            # Loop over de overige kandidaten: als zij een descendant zijn van de huidige kandidaat en een grotere diepte hebben, update de kandidaat.
+            for cand in candidates[1:]:
+                cand_cls, cand_avg, cand_depth = cand
+                if is_descendant(cand_cls, best_cls, json_mapping) and cand_depth > best_depth:
+                    best_candidate = cand
+                    best_cls, best_avg, best_depth = cand
             conclusion_str = (f"Conclusie: Het geluid is waarschijnlijk een {best_cls}. "
-                              f"Hoogste diepte = {int(best_depth)} en gemiddelde waarschijnlijkheid = {best_avg:.2f}.")
+                              f"Diepte = {int(best_depth)} en gemiddelde waarschijnlijkheid = {best_avg:.2f}.")
         else:
             best_cls, best_avg, best_depth = "N/A", "N/A", "N/A"
             conclusion_str = "Conclusie: Geen geldige diepte-informatie beschikbaar."
@@ -248,38 +254,31 @@ else:
         if prob_list:
             avg_probabilities[cls] = sum(prob_list) / len(prob_list)
     
-    top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
     if SELECTIVE_FILTER:
-        top5 = [(cls, avg) for cls, avg in top5 if cls in ALLOWED_CLASSES]
+        avg_probabilities = {cls: avg for cls, avg in avg_probabilities.items() if cls in ALLOWED_CLASSES}
     print("\nTop 5 classificaties (gemiddelde waarschijnlijkheid met diepte-informatie):")
-    for cls, avg in top5:
+    for cls, avg in sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]:
         depth = depth_map.get(cls, "N/A")
         print(f"  {cls}: {avg:.2f} (Diepte = {depth})")
     
-    top5_with_depth = []
+    top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
+    candidates = []
     for cls, avg in top5:
-        depth = depth_map.get(cls, None)
+        depth_val = depth_map.get(cls, None)
         try:
-            depth_numeric = float(depth)
+            depth_numeric = float(depth_val)
         except (TypeError, ValueError):
-            depth_numeric = None
-        if depth_numeric is not None:
-            top5_with_depth.append((cls, avg, depth_numeric))
-    if top5_with_depth:
-        if MAX_DEPTH is not None:
-            filtered_candidates = [x for x in top5_with_depth if x[2] <= MAX_DEPTH]
-            if filtered_candidates:
-                max_depth = max(x[2] for x in filtered_candidates)
-                candidates = [x for x in filtered_candidates if x[2] == max_depth]
-            else:
-                max_depth = max(x[2] for x in top5_with_depth)
-                candidates = [x for x in top5_with_depth if x[2] == max_depth]
-        else:
-            max_depth = max(x[2] for x in top5_with_depth)
-            candidates = [x for x in top5_with_depth if x[2] == max_depth]
-        best_candidate = max(candidates, key=lambda x: x[1])
+            depth_numeric = 0
+        candidates.append((cls, avg, depth_numeric))
+    if candidates:
+        best_candidate = candidates[0]
         best_cls, best_avg, best_depth = best_candidate
+        for cand in candidates[1:]:
+            cand_cls, cand_avg, cand_depth = cand
+            if is_descendant(cand_cls, best_cls, json_mapping) and cand_depth > best_depth:
+                best_candidate = cand
+                best_cls, best_avg, best_depth = cand
         print(f"\nConclusie: Het geluid is waarschijnlijk een {best_cls}. "
-              f"Hoogste diepte = {int(best_depth)} en gemiddelde waarschijnlijkheid = {best_avg:.2f}.")
+              f"Diepte = {int(best_depth)} en gemiddelde waarschijnlijkheid = {best_avg:.2f}.")
     else:
-        print("\nConclusie: Geen geldige diepte-informatie beschikbaar in de top 5 classificaties.")
+        print("\nConclusie: Geen geldige diepte-informatie beschikbaar in de top classificaties.")
