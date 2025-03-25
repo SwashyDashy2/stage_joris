@@ -9,36 +9,34 @@ from collections import Counter, defaultdict
 from tqdm import tqdm
 
 # --- Configuration Parameters ---
-AUDIO_FILE_PATH = r'wavs\ESC10'
-ANALYZE_FILE = True  # Indien True, wordt voor elk audiobestand een Excel-samenvatting aangemaakt.
-excel_output_name = "ESC10_f_max2.xlsx"
+AUDIO_FILE_PATH = r'wavs\hond.wav'
+ANALYZE_FILE = False  # If True, an Excel summary will be created for each audio file.
+EXCEL_OUTPUT_NAME = "ESC10_f_avg.xlsx"
 
 # --- Audio Classifier Parameters ---
-N_CLASSES = 10
+N_CLASSES = 5
+TOP_CLASSIFICATIONS = 5 # Number of top classifications to use for the conclusion.
 
 # --- Filter Options ---
 APPLY_ROOT_CLASS_FILTER = False  # When True, only classes (and their children) that are in valid_names are registered.
-ROOT_NAME = "Motor vehicle (road)"  # Voorbeeld rootcategorie.
+ROOT_NAME = "Motor vehicle (road)"  # Example root category.
 
 # New variables for selective filtering:
 ALLOWED_CLASSES = ["Baby cry, infant cry", "Baby laughter", "Chainsaw", "Chicken, rooster", "Helicopter", "Fire", "Dog", "Rain", "Waves, surf", "Tick", "Tick-tock", "Sneeze"]
-SELECTIVE_FILTER = True  # If True, only display classes (in the final top 5) that are part of ALLOWED_CLASSES
+SELECTIVE_FILTER = False  # If True, only display classes (in the final top 5) that are part of ALLOWED_CLASSES
 
 if APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER:
     raise ValueError("APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER cannot both be True at the same time.")
 
-# --- We gebruiken MAX_DEPTH niet meer als filter, maar als rankingcriterium ---
-MAX_DEPTH = None
-
 # --- Initialize Paths ---
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
-INTERVAL_MS = 975  # Analyse-interval in milliseconden
+INTERVAL_MS = 975  # Analysis interval in milliseconds
 
 # --- Helper Function: Build JSON mapping and check descendant relation ---
 def build_json_mapping(json_data):
     """
-    Bouwt een mapping: class_name -> JSON entry
+    Builds a mapping: class_name -> JSON entry
     """
     mapping = {}
     for entry in json_data:
@@ -47,18 +45,18 @@ def build_json_mapping(json_data):
 
 def is_descendant(child_name, parent_name, json_mapping):
     """
-    Controleer recursief of child_name een descendant is van parent_name
-    Volgens de JSON-structuur: als parent_name een entry heeft in json_mapping,
-    bekijk dan zijn child_ids en vergelijk de corresponderende namen.
+    Recursively check if child_name is a descendant of parent_name
+    According to the JSON structure: if parent_name has an entry in json_mapping,
+    then check its child_ids and compare the corresponding names.
     """
     if parent_name not in json_mapping:
         return False
     parent_entry = json_mapping[parent_name]
     if 'child_ids' not in parent_entry or not parent_entry['child_ids']:
         return False
-    # Zoek in de JSON data alle kinderen van parent_name
+    # Search in the JSON data all children of parent_name
     for child_id in parent_entry['child_ids']:
-        # Zoek de entry met deze id
+        # Find the entry with this id
         child_entry = next((item for item in json_data if item.get('id') == child_id), None)
         if child_entry:
             if child_entry['name'] == child_name:
@@ -70,11 +68,11 @@ def is_descendant(child_name, parent_name, json_mapping):
 
 def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
     """
-    Laadt de audio en het classifiermodel, voert classificatie uit en verwerkt de resultaten.
-    Retourneert een dictionary met:
+    Loads the audio and the classifier model, performs classification and processes the results.
+    Returns a dictionary with:
       - sample_rate, audio_data, classification_results, duration,
-      - all_top10: een lijst van lijsten met tuples (class, probability) per tijdssegment,
-      - class_counts: een teller van de classificaties, eventueel gefilterd op valid_names of ALLOWED_CLASSES.
+      - all_top10: a list of lists with tuples (class, probability) per time segment,
+      - class_counts: a counter of the classifications, optionally filtered on valid_names or ALLOWED_CLASSES.
     """
     sample_rate, audio_data = wavfile.read(audio_file_path)
     audio_data = (audio_data / np.max(np.abs(audio_data)) * np.iinfo(np.int16).max).astype(np.int16)
@@ -124,7 +122,7 @@ def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
     }
 
 def get_valid_names(data, root_name):
-    """Haal recursief alle geldige namen op uit de JSON-data, beginnend vanaf de opgegeven rootcategorie."""
+    """Recursively retrieve all valid names from the JSON data, starting from the specified root category."""
     def find_entry(name):
         return next((entry for entry in data if entry['name'] == name), None)
     
@@ -139,7 +137,7 @@ def get_valid_names(data, root_name):
     root_entry = find_entry(root_name)
     return gather_names(root_entry) if root_entry else []
 
-# --- Laad JSON en bouw Depth Mapping ---
+# --- Load JSON and build Depth Mapping ---
 with open(JSON_PATH, "r") as file:
     json_data = json.load(file)
 
@@ -150,7 +148,7 @@ valid_names = get_valid_names(json_data, ROOT_NAME)
 depth_map = {entry['name']: entry.get('depth', "N/A") for entry in json_data}
 json_mapping = build_json_mapping(json_data)
 
-# --- Hoofdverwerkingsblok ---
+# --- Main Processing Block ---
 if os.path.isdir(AUDIO_FILE_PATH):
     wav_files = [os.path.join(AUDIO_FILE_PATH, f) for f in os.listdir(AUDIO_FILE_PATH) if f.lower().endswith('.wav')]
     
@@ -164,7 +162,7 @@ if os.path.isdir(AUDIO_FILE_PATH):
     
         results = classify_audio(file_path, MODEL_PATH, N_CLASSES, INTERVAL_MS)
         
-        # Verzamel per klasse alle maximum waarschijnlijkheden
+        # Collect all maximum probabilities per class
         class_probabilities = defaultdict(list)
         for timestamp_results in results['all_top10']:
             for cls, prob in timestamp_results:
@@ -185,14 +183,14 @@ if os.path.isdir(AUDIO_FILE_PATH):
         if SELECTIVE_FILTER:
             max_probabilities = {cls: prob for cls, prob in max_probabilities.items() if cls in ALLOWED_CLASSES}
         
-        print("\nTop classificaties (maximum waarschijnlijkheid met diepte-informatie):")
+        print("\nTop classifications (maximum probability with depth information):")
         for cls, max_prob in sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]:
             depth = depth_map.get(cls, "N/A")
-            print(f"  {cls}: {max_prob:.2f} (Diepte = {depth})")
+            print(f"  {cls}: {max_prob:.2f} (Depth = {depth})")
         
-        # Bepaal de top 5 op basis van maximum waarschijnlijkheid
+        # Determine the top 5 based on maximum probability
         top5 = sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
-        # Bouw een lijst met kandidaten: (klasse, max_prob, depth)
+        # Build a list of candidates: (class, max_prob, depth)
         candidates = []
         for cls, prob in top5:
             depth_val = depth_map.get(cls, None)
@@ -202,22 +200,22 @@ if os.path.isdir(AUDIO_FILE_PATH):
                 depth_numeric = 0
             candidates.append((cls, prob, depth_numeric))
         
-        # Begin met de kandidaat met de hoogste maximum waarschijnlijkheid
+        # Start with the candidate with the highest maximum probability
         if candidates:
             best_candidate = candidates[0]
             best_cls, best_prob, best_depth = best_candidate
-            # Loop over de overige kandidaten en kijk of ze een descendant zijn van de huidige kandidaat
+            # Loop over the remaining candidates and see if they are a descendant of the current candidate
             for cand in candidates[1:]:
                 cand_cls, cand_prob, cand_depth = cand
-                # Als cand een descendant is van best_cls en een grotere diepte heeft, update best_candidate.
+                # If cand is a descendant of best_cls and has a greater depth, update best_candidate.
                 if is_descendant(cand_cls, best_cls, json_mapping) and cand_depth > best_depth:
                     best_candidate = cand
                     best_cls, best_prob, best_depth = cand
-            conclusion_str = (f"Conclusie: Het geluid is waarschijnlijk een {best_cls}. "
-                              f"Maximale waarschijnlijkheid = {best_prob:.2f} (Diepte = {int(best_depth)}).")
+            conclusion_str = (f"Conclusion: The sound is likely a {best_cls}. "
+                              f"Maximum probability = {best_prob:.2f} (Depth = {int(best_depth)}).")
         else:
             best_cls, best_prob, best_depth = "N/A", "N/A", "N/A"
-            conclusion_str = "Conclusie: Geen geldige diepte-informatie beschikbaar."
+            conclusion_str = "Conclusion: No valid depth information available."
         
         print(conclusion_str)
         
@@ -231,7 +229,7 @@ if os.path.isdir(AUDIO_FILE_PATH):
     if ANALYZE_FILE:
         import pandas as pd
         df_summary = pd.DataFrame(summary_data)
-        excel_output_path = os.path.join(AUDIO_FILE_PATH, excel_output_name)
+        excel_output_path = os.path.join(AUDIO_FILE_PATH, EXCEL_OUTPUT_NAME)
         df_summary.to_excel(excel_output_path, index=False)
         print(f"\nExcel file created: {excel_output_path}")
     else:
@@ -262,12 +260,12 @@ else:
     if SELECTIVE_FILTER:
         max_probabilities = {cls: prob for cls, prob in max_probabilities.items() if cls in ALLOWED_CLASSES}
     
-    print("\nTop classificaties (maximum waarschijnlijkheid met diepte-informatie):")
-    for cls, max_prob in sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]:
+    print("\nTop classifications (maximum probability with depth information):")
+    for cls, max_prob in sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:TOP_CLASSIFICATIONS]:
         depth = depth_map.get(cls, "N/A")
-        print(f"  {cls}: {max_prob:.2f} (Diepte = {depth})")
+        print(f"  {cls}: {max_prob:.2f} (Depth = {depth})")
     
-    top5 = sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
+    top5 = sorted(max_probabilities.items(), key=lambda item: item[1], reverse=True)[:TOP_CLASSIFICATIONS]
     candidates = []
     for cls, prob in top5:
         depth_val = depth_map.get(cls, None)
@@ -284,7 +282,7 @@ else:
             if is_descendant(cand_cls, best_cls, json_mapping) and cand_depth > best_depth:
                 best_candidate = cand
                 best_cls, best_prob, best_depth = cand
-        print(f"\nConclusie: Het geluid is waarschijnlijk een {best_cls}. "
-              f"Maximale waarschijnlijkheid = {best_prob:.2f} (Diepte = {int(best_depth)}).")
+        print(f"\nConclusion: The sound is likely a {best_cls}. "
+              f"Maximum probability = {best_prob:.2f} (Depth = {int(best_depth)}).")
     else:
-        print("\nConclusie: Geen geldige diepte-informatie beschikbaar in de top classificaties.")
+        print("\nConclusion: No valid depth information available in the top classifications.")

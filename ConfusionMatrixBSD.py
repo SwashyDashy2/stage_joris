@@ -4,9 +4,9 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_recall_fscore_support, balanced_accuracy_score, classification_report
 
 # --- Configuration ---
-excel_file = r"ESC10_f_Beats.xlsx"
+excel_file = r"BSD_f.xlsx"
 # We'll load only columns B and E (zero-indexed: B = index 1, E = index 4)
-df = pd.read_excel(excel_file, header=0, usecols=[4,5])
+df = pd.read_excel(excel_file, header=0, usecols=[1,4])
 
 # For clarity, rename the columns:
 # Assume column B header is "Predicted Class" and column E header is "Correct Class"
@@ -17,7 +17,7 @@ print("Data preview:")
 print(df.head())
 
 # Define allowed classes and final list of classes
-ALLOWED_CLASSES = ["Baby", "Chainsaw", "Rooster", "Helicopter", "Fire", "Dog", "Rain", "Waves", "Clock", "Sneeze"]
+ALLOWED_CLASSES = ["Car", "Motorcycle",  "Truck", "Honk", "Emergency vehicle",]
 FINAL_CLASSES = ALLOWED_CLASSES + ["Not Classified"]
 
 print("Unique values in True column:", df["True"].unique())

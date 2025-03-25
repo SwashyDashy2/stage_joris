@@ -10,39 +10,38 @@ from tqdm import tqdm
 
 # --- Configuration Parameters ---
 AUDIO_FILE_PATH = r'wavs\ESC10'
-ANALYZE_FILE = True  # Indien True, wordt voor elk audiobestand een Excel-samenvatting aangemaakt.
-excel_output_name = "ESC10_f_avg.xlsx"
+ANALYZE_FILE = False  # If True, an Excel summary will be created for each audio file.
+EXCEL_OUTPUT_NAME = "ESC10_f_avg.xlsx"
 
 # --- Audio Classifier Parameters ---
-N_CLASSES = 10
+N_CLASSES = 5
+TOP_CLASSIFICATIONS = 5 # Number of top classifications to use for the conclusion.
 
 # --- Filter Options ---
 APPLY_ROOT_CLASS_FILTER = False  # When True, only classes (and their children) that are in valid_names are registered.
-ROOT_NAME = "Motor vehicle (road)"  # Voorbeeld rootcategorie.
+ROOT_NAME = "Motor vehicle (road)"  # Example root category.
 
 # New variables for selective filtering:
 ALLOWED_CLASSES = ["Baby cry, infant cry", "Baby laughter", "Chainsaw", "Chicken, rooster", "Helicopter", "Fire", "Dog", "Rain", "Waves, surf", "Tick", "Tick-tock", "Sneeze"]
-SELECTIVE_FILTER = True  # If True, only display classes (in the final top 5) that are part of ALLOWED_CLASSES
+SELECTIVE_FILTER = False  # If True, only display classes (in the final top 5) that are part of ALLOWED_CLASSES
 
 if APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER:
     raise ValueError("APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER cannot both be True at the same time.")
 
-MAX_DEPTH = None  # Not used as a filter here
-
 # --- Initialize Paths ---
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
-INTERVAL_MS = 975  # Analyse-interval in milliseconden
+INTERVAL_MS = 975  # Analysis interval in milliseconds
 
 # --- Helper Functions ---
 
 def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
     """
-    Laadt de audio en het classifiermodel, voert classificatie uit en verwerkt de resultaten.
-    Retourneert een dictionary met:
+    Loads the audio and classifier model, performs classification, and processes the results.
+    Returns a dictionary with:
       - sample_rate, audio_data, classification_results, duration,
-      - all_top10: een lijst van lijsten met tuples (class, probability) per tijdssegment,
-      - class_counts: een teller van de classificaties.
+      - all_top10: a list of lists with tuples (class, probability) per time segment,
+      - class_counts: a counter of the classifications.
     """
     sample_rate, audio_data = wavfile.read(audio_file_path)
     audio_data = (audio_data / np.max(np.abs(audio_data)) * np.iinfo(np.int16).max).astype(np.int16)
@@ -92,7 +91,7 @@ def classify_audio(audio_file_path, model_path, n_classes, interval_ms):
     }
 
 def get_valid_names(data, root_name):
-    """Haal recursief alle geldige namen op uit de JSON-data, beginnend vanaf de opgegeven rootcategorie."""
+    """Recursively retrieve all valid names from the JSON data, starting from the specified root category."""
     def find_entry(name):
         return next((entry for entry in data if entry['name'] == name), None)
     
@@ -108,7 +107,7 @@ def get_valid_names(data, root_name):
     return gather_names(root_entry) if root_entry else []
 
 def build_json_mapping(json_data):
-    """Bouw een mapping: class name -> JSON entry."""
+    """Build a mapping: class name -> JSON entry."""
     mapping = {}
     for entry in json_data:
         mapping[entry['name']] = entry
@@ -116,8 +115,8 @@ def build_json_mapping(json_data):
 
 def is_descendant(child_name, parent_name, json_mapping):
     """
-    Controleer recursief of child_name een descendant is van parent_name via de JSON-structuur.
-    Als parent_name in json_mapping staat, bekijk dan zijn child_ids en zoek naar child_name.
+    Recursively check if child_name is a descendant of parent_name via the JSON structure.
+    If parent_name is in json_mapping, check its child_ids and look for child_name.
     """
     if parent_name not in json_mapping:
         return False
@@ -133,7 +132,7 @@ def is_descendant(child_name, parent_name, json_mapping):
                 return True
     return False
 
-# --- Laad JSON en bouw Depth Mapping ---
+# --- Load JSON and build Depth Mapping ---
 with open(JSON_PATH, "r") as file:
     json_data = json.load(file)
 
@@ -144,7 +143,7 @@ valid_names = get_valid_names(json_data, ROOT_NAME)
 depth_map = {entry['name']: entry.get('depth', "N/A") for entry in json_data}
 json_mapping = build_json_mapping(json_data)
 
-# --- Hoofdverwerkingsblok ---
+# --- Main Processing Block ---
 if os.path.isdir(AUDIO_FILE_PATH):
     wav_files = [os.path.join(AUDIO_FILE_PATH, f) for f in os.listdir(AUDIO_FILE_PATH) if f.lower().endswith('.wav')]
     
@@ -158,7 +157,7 @@ if os.path.isdir(AUDIO_FILE_PATH):
     
         results = classify_audio(file_path, MODEL_PATH, N_CLASSES, INTERVAL_MS)
         
-        # Accumuleer per klasse alle waarschijnlijkheden uit de tijdssegmenten.
+        # Accumulate probabilities per class from the time segments.
         class_probabilities = defaultdict(list)
         for timestamp_results in results['all_top10']:
             for cls, prob in timestamp_results:
@@ -171,24 +170,24 @@ if os.path.isdir(AUDIO_FILE_PATH):
                 else:
                     class_probabilities[cls].append(prob)
         
-        # Bereken de gemiddelde waarschijnlijkheid per klasse.
+        # Calculate the average probability per class.
         avg_probabilities = {}
         for cls, prob_list in class_probabilities.items():
             if prob_list:
                 avg_probabilities[cls] = sum(prob_list) / len(prob_list)
         
-        # Filter op ALLOWED_CLASSES indien SELECTIVE_FILTER actief is.
+        # Filter on ALLOWED_CLASSES if SELECTIVE_FILTER is active.
         if SELECTIVE_FILTER:
             avg_probabilities = {cls: avg for cls, avg in avg_probabilities.items() if cls in ALLOWED_CLASSES}
         
-        print("\nTop 5 classificaties (gemiddelde waarschijnlijkheid met diepte-informatie):")
+        print("\nTop 5 classifications (average probability with depth information):")
         for cls, avg in sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]:
             depth = depth_map.get(cls, "N/A")
-            print(f"  {cls}: {avg:.2f} (Diepte = {depth})")
+            print(f"  {cls}: {avg:.2f} (Depth = {depth})")
         
-        # Bepaal de top 5 op basis van gemiddelde waarschijnlijkheid.
+        # Determine the top 5 based on average probability.
         top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
-        # Bouw een lijst met kandidaten: (klasse, gemiddelde waarschijnlijkheid, depth)
+        # Build a list of candidates: (class, average probability, depth)
         candidates = []
         for cls, avg in top5:
             depth_val = depth_map.get(cls, None)
@@ -198,21 +197,21 @@ if os.path.isdir(AUDIO_FILE_PATH):
                 depth_numeric = 0
             candidates.append((cls, avg, depth_numeric))
         
-        # Begin met de kandidaat met de hoogste gemiddelde waarschijnlijkheid.
+        # Start with the candidate with the highest average probability.
         if candidates:
             best_candidate = candidates[0]
             best_cls, best_avg, best_depth = best_candidate
-            # Loop over de overige kandidaten: als zij een descendant zijn van de huidige kandidaat en een grotere diepte hebben, update de kandidaat.
+            # Loop over the remaining candidates: if they are a descendant of the current candidate and have a greater depth, update the candidate.
             for cand in candidates[1:]:
                 cand_cls, cand_avg, cand_depth = cand
                 if is_descendant(cand_cls, best_cls, json_mapping) and cand_depth > best_depth:
                     best_candidate = cand
                     best_cls, best_avg, best_depth = cand
-            conclusion_str = (f"Conclusie: Het geluid is waarschijnlijk een {best_cls}. "
-                              f"Diepte = {int(best_depth)} en gemiddelde waarschijnlijkheid = {best_avg:.2f}.")
+            conclusion_str = (f"Conclusion: The sound is likely a {best_cls}. "
+                              f"Depth = {int(best_depth)} and average probability = {best_avg:.2f}.")
         else:
             best_cls, best_avg, best_depth = "N/A", "N/A", "N/A"
-            conclusion_str = "Conclusie: Geen geldige diepte-informatie beschikbaar."
+            conclusion_str = "Conclusion: No valid depth information available."
         
         print(conclusion_str)
         
@@ -226,7 +225,7 @@ if os.path.isdir(AUDIO_FILE_PATH):
     if ANALYZE_FILE:
         import pandas as pd
         df_summary = pd.DataFrame(summary_data)
-        excel_output_path = os.path.join(AUDIO_FILE_PATH, excel_output_name)
+        excel_output_path = os.path.join(AUDIO_FILE_PATH, EXCEL_OUTPUT_NAME)
         df_summary.to_excel(excel_output_path, index=False)
         print(f"\nExcel file created: {excel_output_path}")
     else:
@@ -256,12 +255,12 @@ else:
     
     if SELECTIVE_FILTER:
         avg_probabilities = {cls: avg for cls, avg in avg_probabilities.items() if cls in ALLOWED_CLASSES}
-    print("\nTop 5 classificaties (gemiddelde waarschijnlijkheid met diepte-informatie):")
-    for cls, avg in sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]:
+    print("\nTop 5 classifications (average probability with depth information):")
+    for cls, avg in sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:TOP_CLASSIFICATIONS]:
         depth = depth_map.get(cls, "N/A")
-        print(f"  {cls}: {avg:.2f} (Diepte = {depth})")
+        print(f"  {cls}: {avg:.2f} (Depth = {depth})")
     
-    top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:5]
+    top5 = sorted(avg_probabilities.items(), key=lambda item: item[1], reverse=True)[:TOP_CLASSIFICATIONS]
     candidates = []
     for cls, avg in top5:
         depth_val = depth_map.get(cls, None)
@@ -278,7 +277,7 @@ else:
             if is_descendant(cand_cls, best_cls, json_mapping) and cand_depth > best_depth:
                 best_candidate = cand
                 best_cls, best_avg, best_depth = cand
-        print(f"\nConclusie: Het geluid is waarschijnlijk een {best_cls}. "
-              f"Diepte = {int(best_depth)} en gemiddelde waarschijnlijkheid = {best_avg:.2f}.")
+        print(f"\nConclusion: The sound is likely a {best_cls}. "
+              f"Depth = {int(best_depth)} and average probability = {best_avg:.2f}.")
     else:
-        print("\nConclusie: Geen geldige diepte-informatie beschikbaar in de top classificaties.")
+        print("\nConclusion: No valid depth information available in the top classifications.")
