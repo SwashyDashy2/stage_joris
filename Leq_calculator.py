@@ -20,7 +20,7 @@ import threading
 import time
 from scipy.signal import find_peaks
 
-wav_file = r'wavs\sirene\police-siren-21498.mp3'  #Wav bestand wat geanalyseerd wordt.
+wav_file = r'vehicle_20250409_103013_multiPeak(19).wav'  #Wav bestand wat geanalyseerd wordt.
 
 def calculate_leq_chunk(audio_data, sample_rate, chunk_size):
     squared_amplitude = np.square(audio_data)
@@ -66,7 +66,7 @@ def calculate_leq_over_time(wav_file, combine_channels=True, chunk_duration=0.1)
 
     return leq_values, time_stamps, audio_data, sample_rate
 
-def find_significant_peaks(leq_values, time_stamps, prominence=3):
+def find_significant_peaks(leq_values, time_stamps, prominence=5):
     peaks_indices, _ = find_peaks(leq_values, prominence=prominence)
     max_leq = max(leq_values)
     filtered_peaks = [(time_stamps[i], leq_values[i]) for i in peaks_indices if leq_values[i] >= 0.5 * max_leq]
@@ -80,7 +80,7 @@ fig, ax = plt.subplots(figsize=(10, 6))
 ax.plot(time_stamps, leq_values, label='LEQ over Time', color='blue')
 
 # Detect peaks
-peaks = find_significant_peaks(leq_values, time_stamps, prominence=5)
+peaks = find_significant_peaks(leq_values, time_stamps, prominence=6)
 if peaks:
     ax.scatter(*zip(*peaks), color='red', label='Significant Peaks', zorder=3)
 
