@@ -10,7 +10,7 @@ import matplotlib.animation as animation
 # ==== CONFIGURATION ====
 INPUT = r'vehicle_20250409_135326.wav'  # Your audio file path
 LOW_CUT = 100.0
-HIGH_CUT = 2000.0
+HIGH_CUT = 2000
 FILTER_ORDER = 4
 CHUNK = 1024
 CHUNK_DURATION = CHUNK / 44100

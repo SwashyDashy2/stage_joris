@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 # --- Configuration Parameters ---
 AUDIO_FILE_PATH = r'15 minute test\peaks_15mins'
-ANALYZE_FILE = True  # If True, an Excel summary will be created for each audio file.
+ANALYZE_FILE = True  # If True, an Excel summary will be created for each audio file
 EXCEL_OUTPUT_NAME = "15_min_test_avg_f.xlsx"
 
 # --- Audio Classifier Parameters ---

@@ -107,7 +107,7 @@ classification_thread.start()
 # Wait for user to stop the classification
 stop_classification()
 
-# Wait for the classification thread to finish
+# Wait for the classification thread to finish.
 classification_thread.join()
 
 print("Classification stopped.")

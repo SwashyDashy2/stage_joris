@@ -9,7 +9,7 @@ import sounddevice as sd
 import threading
 import time
 from scipy.signal import find_peaks, butter, lfilter
-import pandas as pd  # Needed for Excel export
+import pandas as pd  # Needed for Excel export.
 
 # ==== CONFIG ====
 

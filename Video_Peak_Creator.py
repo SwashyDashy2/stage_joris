@@ -12,7 +12,7 @@ PROMINENCE = 8          # Base prominence for peak detection
 CLIP_DURATION = 8        # seconds; exact clip length we want
 PRE_PEAK_SECONDS = 4     # seconds before the peak; clip will be [peak - 4, peak + 4]
 POST_PEAK_SECONDS = 4    # seconds after the peak
-AUDIO_TEMP_FILE = "temp_audio.wav"  # Temporary file for audio extraction
+AUDIO_TEMP_FILE = "temp_audio.wav"  # Temporary file for audio extraction.
 
 # New filtering parameters:
 DESIRED_DB_THRESHOLD = 64.0  # Only detect peaks with LEQ >= 64 dB

@@ -8,7 +8,7 @@ import os
 INPUT_WAV_FILE = r'15 minute test\recording_15min.wav'  # Replace with your WAV file path
 OUTPUT_DIR = r'./peaks_15mins'             # Directory to save output peak clips
 
-# Analysis parameters (same as in your original code)
+# Analysis parameters (same as in your original code).
 RATE_DESIRED = 44100         # sample rate (we assume the input file is at this rate)
 CHUNK = 1024
 CHUNK_DURATION = CHUNK / RATE_DESIRED

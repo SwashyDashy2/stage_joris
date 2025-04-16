@@ -31,7 +31,7 @@ if APPLY_ROOT_CLASS_FILTER and SELECTIVE_FILTER:
 # --- Initialize Paths ---
 MODEL_PATH = 'yamnet_classifier.tflite'
 JSON_PATH = "Depth_mapping_Mediapipe.json"
-INTERVAL_MS = 975  # Analysis interval in milliseconds
+INTERVAL_MS = 975  # Analysis interval in milliseconds.
 
 # --- Helper Function: Build JSON mapping and check descendant relation ---
 def build_json_mapping(json_data):

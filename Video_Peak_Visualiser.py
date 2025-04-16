@@ -8,7 +8,7 @@ import sounddevice as sd
 import time
 
 # ==== CONFIGURATION ====
-VIDEO_PATH = r"14-04-2025_1330-1400_Wolfskamerweg.mkv"  # Full path to your MKV file
+VIDEO_PATH = r"6_minuten_testfootage.mkv"  # Full path to your MKV file
 PROMINENCE = 8          # Existing prominence parameter for peak detection
 CHUNK_DURATION = 0.1     # Duration (in seconds) of each chunk for LEQ calculation
 AUDIO_TEMP_FILE = "temp_audio.wav"  # Temporary file for audio extraction
